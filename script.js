@@ -119,9 +119,12 @@
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext("2d");
 
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var width = window.innerWidth;
     var height = window.innerHeight;
+    // Cheap low-end signal: few logical cores or a small viewport both
+    // correlate with weaker GPUs/CPUs, so we thin particle counts for them.
+    var lowPower = (navigator.hardwareConcurrency || 4) <= 4;
 
     var mouse = { x: width / 2, y: height * 0.42 };
     var pointerActive = false; // true while pointer is over the hero section
@@ -167,7 +170,7 @@
     function resizeCanvas() {
       width = window.innerWidth;
       height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = width + "px";
@@ -181,7 +184,8 @@
     /* ---------- starfield ---------- */
     function createStars() {
       var count = Math.round((width * height) / 8500);
-      count = Math.max(90, Math.min(count, 260));
+      count = Math.max(70, Math.min(count, 260));
+      if (lowPower) count = Math.round(count * 0.6);
       stars = [];
       for (var i = 0; i < count; i++) {
         var x = Math.random() * width;
@@ -249,7 +253,8 @@
 
     /* ---------- accretion disk particles ---------- */
     function createDiskParticles() {
-      var count = width < 640 ? 90 : 170;
+      var count = width < 640 ? 70 : width < 1100 ? 130 : 170;
+      if (lowPower) count = Math.round(count * 0.65);
       diskParticles = [];
       for (var i = 0; i < count; i++) {
         var r = scale.innerR + Math.random() * (scale.outerR - scale.innerR);
@@ -357,20 +362,36 @@
       }
     }
 
-    /* ---------- event horizon ---------- */
-    function drawEventHorizon(glowBoost) {
-      // outer ambient glow
-      var g = ctx.createRadialGradient(
+    /* ---------- event horizon (gradients cached, rebuilt only on resize) ---------- */
+    var horizonGlowGrad = null;
+    var horizonRimGrad = null;
+
+    function rebuildHorizonGradients() {
+      horizonGlowGrad = ctx.createRadialGradient(
         center.x, center.y, scale.bhRadius * 0.6,
         center.x, center.y, scale.bhRadius * 4.2
       );
-      g.addColorStop(0, "rgba(255,170,80," + (0.35 * glowBoost) + ")");
-      g.addColorStop(0.4, "rgba(255,120,30," + (0.12 * glowBoost) + ")");
-      g.addColorStop(1, "rgba(255,120,30,0)");
-      ctx.fillStyle = g;
+      horizonGlowGrad.addColorStop(0, "rgba(255,170,80,1)");
+      horizonGlowGrad.addColorStop(0.4, "rgba(255,120,30,0.34)");
+      horizonGlowGrad.addColorStop(1, "rgba(255,120,30,0)");
+
+      horizonRimGrad = ctx.createLinearGradient(
+        center.x - scale.bhRadius, center.y,
+        center.x + scale.bhRadius, center.y
+      );
+      horizonRimGrad.addColorStop(0, "rgba(0,243,255,0.55)");
+      horizonRimGrad.addColorStop(0.5, "rgba(255,255,255,0.9)");
+      horizonRimGrad.addColorStop(1, "rgba(255,170,60,0.6)");
+    }
+
+    function drawEventHorizon(glowBoost) {
+      // outer ambient glow — pre-built gradient object, only alpha varies per frame
+      ctx.globalAlpha = 0.35 * glowBoost;
+      ctx.fillStyle = horizonGlowGrad;
       ctx.beginPath();
       ctx.arc(center.x, center.y, scale.bhRadius * 4.2, 0, TAU);
       ctx.fill();
+      ctx.globalAlpha = 1;
 
       // relativistic (Doppler) beaming: the approaching edge of the disk
       // reads brighter and blue-shifted, as in the real Gargantua render
