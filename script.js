@@ -315,22 +315,46 @@
 
     /* ---------- lensing arc (Gargantua-style bent light above the horizon) ---------- */
     function drawLensingArcs(glowBoost) {
+      // Fade the beams out well before they reach the navbar, and make sure
+      // they never intercept clicks/hover near the header.
+      var topSafeZone = 96; // px below the viewport top where beams must be ~invisible
+      var topFade = clamp((center.y - topSafeZone) / (scale.outerR * 1.12), 0, 1);
+      if (topFade <= 0) return;
+
       ctx.save();
       ctx.translate(center.x, center.y);
-      ctx.globalAlpha = 0.55 * glowBoost;
-      ctx.strokeStyle = "rgba(255,214,150,0.9)";
-      ctx.lineWidth = Math.max(1.8, scale.bhRadius * 0.045);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, scale.bhRadius * 1.55, scale.outerR * 1.12, 0, Math.PI * 1.02, Math.PI * 1.98);
-      ctx.stroke();
+      ctx.filter = "blur(6px)"; // soften hard stroke edges into volumetric light
 
-      ctx.globalAlpha = 0.3 * glowBoost;
-      ctx.lineWidth = Math.max(1.2, scale.bhRadius * 0.03);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, scale.bhRadius * 1.3, scale.outerR * 0.9, 0, Math.PI * 1.05, Math.PI * 1.95);
-      ctx.stroke();
+      drawTaperedArcBeam(scale.bhRadius * 1.55, scale.outerR * 1.12, Math.max(2.4, scale.bhRadius * 0.06), 0.5 * glowBoost * topFade, "255,214,150");
+      drawTaperedArcBeam(scale.bhRadius * 1.3, scale.outerR * 0.9, Math.max(1.8, scale.bhRadius * 0.04), 0.28 * glowBoost * topFade, "255,180,110");
+
+      ctx.filter = "none";
       ctx.restore();
       ctx.globalAlpha = 1;
+    }
+
+    // Draws a vertical light-beam arc built from short segments whose alpha
+    // tapers to 0 near the top, instead of one hard-edged uniform stroke.
+    function drawTaperedArcBeam(rx, ry, lineWidth, baseAlpha, rgb) {
+      var startAngle = Math.PI * 1.02;
+      var endAngle = Math.PI * 1.98;
+      var steps = 28;
+      ctx.lineWidth = lineWidth;
+      ctx.lineCap = "round";
+      for (var i = 0; i < steps; i++) {
+        var a0 = startAngle + ((endAngle - startAngle) * i) / steps;
+        var a1 = startAngle + ((endAngle - startAngle) * (i + 1)) / steps;
+        var midAngle = (a0 + a1) / 2;
+        var y = Math.sin(midAngle) * ry; // negative = above center, toward the top
+        var heightFrac = clamp(-y / ry, 0, 1); // 0 at the disk plane, 1 at the very top
+        var segAlpha = baseAlpha * (1 - Math.pow(heightFrac, 1.6));
+        if (segAlpha <= 0.004) continue;
+        ctx.globalAlpha = segAlpha;
+        ctx.strokeStyle = "rgba(" + rgb + "," + Math.min(1, segAlpha + 0.15) + ")";
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rx, ry, 0, a0, a1);
+        ctx.stroke();
+      }
     }
 
     /* ---------- event horizon ---------- */
