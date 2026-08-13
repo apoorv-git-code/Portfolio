@@ -112,9 +112,9 @@
   })();
 
   /* ===========================================================
-     COSMIC SCENE: starfield + interactive black hole
+     STARFIELD: lightweight interactive space-dust canvas
   =========================================================== */
-  (function initCosmicScene() {
+  (function initStarfield() {
     var canvas = document.getElementById("cosmic-canvas");
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext("2d");
@@ -122,9 +122,199 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var width = window.innerWidth;
     var height = window.innerHeight;
-    // Cheap low-end signal: few logical cores or a small viewport both
-    // correlate with weaker GPUs/CPUs, so we thin particle counts for them.
     var lowPower = (navigator.hardwareConcurrency || 4) <= 4;
+
+    var mouse = { x: width / 2, y: height / 2, active: false };
+    var stars = [];
+    var heroEl = document.getElementById("top");
+    var heroVisible = true;
+
+    var PALETTE = [
+      "255,255,255", // soft white
+      "160,220,255", // ambient cyan/blue
+      "255,196,120"  // amber highlight
+    ];
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      createStars();
+    }
+
+    function createStars() {
+      var count = Math.round((width * height) / 9000);
+      count = Math.max(80, Math.min(count, 150));
+      if (lowPower) count = Math.round(count * 0.7);
+
+      stars = [];
+      for (var i = 0; i < count; i++) {
+        var x = Math.random() * width;
+        var y = Math.random() * height;
+        var colorRoll = Math.random();
+        stars.push({
+          x: x, y: y, baseX: x, baseY: y,
+          vx: (Math.random() - 0.5) * 0.06,
+          vy: (Math.random() - 0.5) * 0.06,
+          r: 0.7 + Math.random() * 1.7,
+          alphaBase: 0.35 + Math.random() * 0.6,
+          twinkleSpeed: 0.4 + Math.random() * 1.5,
+          phase: Math.random() * TAU,
+          rgb: colorRoll < 0.72 ? PALETTE[0] : colorRoll < 0.9 ? PALETTE[1] : PALETTE[2]
+        });
+      }
+    }
+
+    function update(dt) {
+      var repelRadius = 130;
+      var repelStrength = 0.9;
+      var spring = 0.012;
+      var damping = 0.92;
+      var stepScale = dt / 16.67; // frame-rate independent motion
+
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+
+        // drift
+        s.baseX += s.vx * stepScale;
+        s.baseY += s.vy * stepScale;
+        if (s.baseX < -20) s.baseX = width + 20;
+        if (s.baseX > width + 20) s.baseX = -20;
+        if (s.baseY < -20) s.baseY = height + 20;
+        if (s.baseY > height + 20) s.baseY = -20;
+
+        if (mouse.active) {
+          var dx = s.x - mouse.x;
+          var dy = s.y - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy) + 0.001;
+          if (dist < repelRadius) {
+            // gentle repulsion near the cursor, easing off with distance
+            var force = (1 - dist / repelRadius) * repelStrength;
+            s.x += (dx / dist) * force * stepScale;
+            s.y += (dy / dist) * force * stepScale;
+          }
+        }
+
+        // spring back toward drifting base position
+        s.x += (s.baseX - s.x) * spring * stepScale;
+        s.y += (s.baseY - s.y) * spring * stepScale;
+      }
+    }
+
+    function draw(now) {
+      ctx.clearRect(0, 0, width, height);
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var twinkle = 0.5 + 0.5 * Math.sin(now * 0.0016 * s.twinkleSpeed + s.phase);
+        var alpha = s.alphaBase * (0.4 + 0.6 * twinkle);
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(" + s.rgb + "," + alpha.toFixed(3) + ")";
+        ctx.arc(s.x, s.y, s.r, 0, TAU);
+        ctx.fill();
+      }
+    }
+
+    /* ---------- main loop ---------- */
+    var lastTime = performance.now();
+    var running = true;
+
+    function frame(now) {
+      if (!running) return;
+      var dt = Math.min(now - lastTime, 48);
+      lastTime = now;
+
+      if (heroVisible) {
+        update(dt);
+        draw(now);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function frameStatic() {
+      ctx.clearRect(0, 0, width, height);
+      draw(0);
+    }
+
+    /* ---------- events ---------- */
+    window.addEventListener("mousemove", function (e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive: true });
+
+    window.addEventListener("mouseleave", function () {
+      mouse.active = false;
+    });
+
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        resizeCanvas();
+        if (reduceMotion) frameStatic();
+      }, 150);
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          resizeCanvas();
+          if (reduceMotion) frameStatic();
+        }, 150);
+      });
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      running = !document.hidden && heroVisible;
+      if (running && !reduceMotion) {
+        lastTime = performance.now();
+        requestAnimationFrame(frame);
+      }
+    });
+
+    // Pause entirely once scrolled past the hero section.
+    if (heroEl && "IntersectionObserver" in window) {
+      var heroObserver = new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        running = heroVisible && !document.hidden;
+        if (running && !reduceMotion) {
+          lastTime = performance.now();
+          requestAnimationFrame(frame);
+        }
+      }, { threshold: 0 });
+      heroObserver.observe(heroEl);
+    }
+
+    /* ---------- init ---------- */
+    resizeCanvas();
+
+    if (reduceMotion) {
+      frameStatic();
+    } else {
+      requestAnimationFrame(frame);
+    }
+  })();
+
+  /* ===========================================================
+     REMOVED: black hole scene (event horizon, accretion disk,
+     lensing jets). Kept disabled below intentionally removed —
+     see initStarfield above for the replacement background.
+  =========================================================== */
+  (function initCosmicSceneDISABLED() {
+    if (true) return;
+    var canvas = document.getElementById("cosmic-canvas");
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var width = window.innerWidth;
+    var height = window.innerHeight;
 
     var mouse = { x: width / 2, y: height * 0.42 };
     var pointerActive = false; // true while pointer is over the hero section
@@ -170,7 +360,7 @@
     function resizeCanvas() {
       width = window.innerWidth;
       height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = width + "px";
@@ -184,8 +374,7 @@
     /* ---------- starfield ---------- */
     function createStars() {
       var count = Math.round((width * height) / 8500);
-      count = Math.max(70, Math.min(count, 260));
-      if (lowPower) count = Math.round(count * 0.6);
+      count = Math.max(90, Math.min(count, 260));
       stars = [];
       for (var i = 0; i < count; i++) {
         var x = Math.random() * width;
@@ -253,8 +442,7 @@
 
     /* ---------- accretion disk particles ---------- */
     function createDiskParticles() {
-      var count = width < 640 ? 70 : width < 1100 ? 130 : 170;
-      if (lowPower) count = Math.round(count * 0.65);
+      var count = width < 640 ? 90 : 170;
       diskParticles = [];
       for (var i = 0; i < count; i++) {
         var r = scale.innerR + Math.random() * (scale.outerR - scale.innerR);
@@ -362,36 +550,20 @@
       }
     }
 
-    /* ---------- event horizon (gradients cached, rebuilt only on resize) ---------- */
-    var horizonGlowGrad = null;
-    var horizonRimGrad = null;
-
-    function rebuildHorizonGradients() {
-      horizonGlowGrad = ctx.createRadialGradient(
+    /* ---------- event horizon ---------- */
+    function drawEventHorizon(glowBoost) {
+      // outer ambient glow
+      var g = ctx.createRadialGradient(
         center.x, center.y, scale.bhRadius * 0.6,
         center.x, center.y, scale.bhRadius * 4.2
       );
-      horizonGlowGrad.addColorStop(0, "rgba(255,170,80,1)");
-      horizonGlowGrad.addColorStop(0.4, "rgba(255,120,30,0.34)");
-      horizonGlowGrad.addColorStop(1, "rgba(255,120,30,0)");
-
-      horizonRimGrad = ctx.createLinearGradient(
-        center.x - scale.bhRadius, center.y,
-        center.x + scale.bhRadius, center.y
-      );
-      horizonRimGrad.addColorStop(0, "rgba(0,243,255,0.55)");
-      horizonRimGrad.addColorStop(0.5, "rgba(255,255,255,0.9)");
-      horizonRimGrad.addColorStop(1, "rgba(255,170,60,0.6)");
-    }
-
-    function drawEventHorizon(glowBoost) {
-      // outer ambient glow — pre-built gradient object, only alpha varies per frame
-      ctx.globalAlpha = 0.35 * glowBoost;
-      ctx.fillStyle = horizonGlowGrad;
+      g.addColorStop(0, "rgba(255,170,80," + (0.35 * glowBoost) + ")");
+      g.addColorStop(0.4, "rgba(255,120,30," + (0.12 * glowBoost) + ")");
+      g.addColorStop(1, "rgba(255,120,30,0)");
+      ctx.fillStyle = g;
       ctx.beginPath();
       ctx.arc(center.x, center.y, scale.bhRadius * 4.2, 0, TAU);
       ctx.fill();
-      ctx.globalAlpha = 1;
 
       // relativistic (Doppler) beaming: the approaching edge of the disk
       // reads brighter and blue-shifted, as in the real Gargantua render
