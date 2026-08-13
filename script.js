@@ -156,12 +156,12 @@
     /* ---------- sizing ---------- */
     function computeScale() {
       var minDim = Math.min(width, height);
-      scale.bhRadius = Math.max(46, minDim * 0.075);
+      scale.bhRadius = Math.max(72, minDim * 0.16);
       scale.innerR = scale.bhRadius * 1.9;
-      scale.outerR = scale.bhRadius * 5.2;
+      scale.outerR = scale.bhRadius * 6.4;
       scale.proximityRadius = scale.outerR * 1.5;
       baseCenter.x = width / 2;
-      baseCenter.y = height * 0.44;
+      baseCenter.y = height * 0.5;
     }
 
     function resizeCanvas() {
@@ -284,7 +284,7 @@
     }
 
     function drawDiskParticles(now, glowBoost) {
-      var flattenY = 0.42;
+      var flattenY = 0.58;
       for (var i = 0; i < diskParticles.length; i++) {
         var p = diskParticles[i];
         var r = p.radius + p.radiusOffset;
@@ -319,15 +319,15 @@
       ctx.translate(center.x, center.y);
       ctx.globalAlpha = 0.55 * glowBoost;
       ctx.strokeStyle = "rgba(255,214,150,0.9)";
-      ctx.lineWidth = Math.max(1.4, scale.bhRadius * 0.045);
+      ctx.lineWidth = Math.max(1.8, scale.bhRadius * 0.045);
       ctx.beginPath();
-      ctx.ellipse(0, 0, scale.bhRadius * 1.55, scale.outerR * 0.98, 0, Math.PI * 1.02, Math.PI * 1.98);
+      ctx.ellipse(0, 0, scale.bhRadius * 1.55, scale.outerR * 1.12, 0, Math.PI * 1.02, Math.PI * 1.98);
       ctx.stroke();
 
       ctx.globalAlpha = 0.3 * glowBoost;
-      ctx.lineWidth = Math.max(1, scale.bhRadius * 0.03);
+      ctx.lineWidth = Math.max(1.2, scale.bhRadius * 0.03);
       ctx.beginPath();
-      ctx.ellipse(0, 0, scale.bhRadius * 1.3, scale.outerR * 0.78, 0, Math.PI * 1.05, Math.PI * 1.95);
+      ctx.ellipse(0, 0, scale.bhRadius * 1.3, scale.outerR * 0.9, 0, Math.PI * 1.05, Math.PI * 1.95);
       ctx.stroke();
       ctx.restore();
       ctx.globalAlpha = 1;
@@ -500,13 +500,17 @@
     });
 
     var resizeTimer;
-    window.addEventListener("resize", function () {
+    function scheduleResize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
         resizeCanvas();
         if (reduceMotion) frameStatic();
       }, 150);
-    });
+    }
+    window.addEventListener("resize", scheduleResize);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", scheduleResize);
+    }
 
     document.addEventListener("visibilitychange", function () {
       running = !document.hidden;
