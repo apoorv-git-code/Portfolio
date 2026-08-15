@@ -310,12 +310,6 @@ body.custom-cursor-active .cursor-trail { display: block; }
     font-weight: 600; 
     font-size: 1rem; 
     white-space: nowrap; 
-    /* NEW COLOR CSS BELOW */
-    background: linear-gradient(to right, #7CE8FF, #1E1136, #130B22, #E1D6E2, #0A0512);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent; 
 }
 .logo-orbit {
   width: 9px;
@@ -393,7 +387,7 @@ body.custom-cursor-active .cursor-trail { display: block; }
   background: linear-gradient(135deg, #ffffff 30%, #cdd6f0 70%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: #7CE8FF;
 }
 
 .hero-loc {
