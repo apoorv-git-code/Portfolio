@@ -649,6 +649,75 @@ body.custom-cursor-active .cursor-trail { display: block; }
   color: var(--text-dim);
 }
 
+/* Container to hold the stars without messing up your page layout */
+.shooting-stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Covers the hero section */
+    overflow: hidden;
+    z-index: 0; /* Keeps it behind your text and buttons */
+    pointer-events: none; /* Ensures you can still click buttons underneath */
+}
+
+/* The actual shooting star */
+.shooting-star {
+    position: absolute;
+    top: -50px;
+    left: 80%; /* Starts on the right side of the screen */
+    width: 120px; /* Length of the star's tail */
+    height: 2px;
+    
+    /* Creates the fading tail effect (Cyan core to transparent) */
+    background: linear-gradient(to right, rgba(0, 240, 255, 1) 0%, rgba(0, 240, 255, 0) 100%);
+    
+    /* Adds the neon glow */
+    filter: drop-shadow(0 0 6px #00f0ff);
+    
+    /* The animation: 8 seconds total, but the movement is fast */
+    animation: shoot 8s linear infinite;
+    opacity: 0; /* Hidden by default */
+}
+
+/* Staggering the stars so they don't fall at the same time or place */
+.shooting-star.delay-1 {
+    top: -50px;
+    left: 40%;
+    animation-delay: 3s; /* Waits 3 seconds before starting */
+    animation-duration: 12s; /* Happens less frequently */
+}
+
+.shooting-star.delay-2 {
+    top: 20%;
+    left: 100%;
+    animation-delay: 7s;
+    animation-duration: 15s; 
+}
+
+/* The Animation Keyframes */
+@keyframes shoot {
+    0% {
+        /* Starts off-screen, angled diagonally */
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 0;
+    }
+    5% {
+        /* Fades in quickly as it enters */
+        opacity: 1;
+    }
+    15% {
+        /* Shoots diagonally across the screen */
+        transform: translateX(-800px) translateY(800px) rotate(-45deg);
+        opacity: 0; /* Fades out */
+    }
+    100% {
+        /* Stays invisible for the rest of the 8-15 seconds to make it 'occasional' */
+        transform: translateX(-800px) translateY(800px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
