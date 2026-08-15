@@ -303,14 +303,19 @@ body.custom-cursor-active .cursor-trail { display: block; }
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--text);
-  white-space: nowrap;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    font-family: var(--font-display); 
+    font-weight: 600; 
+    font-size: 1rem; 
+    white-space: nowrap; 
+    /* NEW COLOR CSS BELOW */
+    background: linear-gradient(to right, #7CE8FF, #1E1136, #130B22, #E1D6E2, #0A0512);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
 }
 .logo-orbit {
   width: 9px;
