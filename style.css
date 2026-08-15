@@ -317,6 +317,8 @@ body.custom-cursor-active .cursor-trail { display: block; }
   border-radius: 50%;
   background: var(--gold);
   box-shadow: 0 0 10px 2px var(--gold-glow);
+   filter: drop-shadow(0 0 8px rgba(124, 232, 255, 0.6)) 
+            drop-shadow(0 0 24px rgba(124, 232, 255, 0.3));
 }
 
 .main-nav {
