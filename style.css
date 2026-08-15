@@ -81,8 +81,11 @@ h1, h2, h3, p { margin: 0; }
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0;
+  z-index: -1;
   background: var(--void);
+  overflow: visible;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 1) 130px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 1) 130px);
 }
 
 /* ==========================================================================
@@ -157,6 +160,11 @@ body.custom-cursor-active .cursor-trail { display: block; }
 /* ==========================================================================
    Shared utility bits
    ========================================================================== */
+.section-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
 .header-inner {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -262,7 +270,15 @@ body.custom-cursor-active .cursor-trail { display: block; }
   box-shadow: 0 10px 22px -14px var(--cyan-glow);
 }
 
-/* .face-panel (glassmorphic cube face) is defined in the Cube section below */
+/* Glassmorphic panel used across sections */
+.section-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  padding: 44px 44px 48px;
+}
 
 /* ==========================================================================
    Header / Nav
@@ -347,14 +363,25 @@ body.custom-cursor-active .cursor-trail { display: block; }
 /* ==========================================================================
    Hero
    ========================================================================== */
-/* ==========================================================================
-   Hero content (reused inside face 0's .face-panel)
-   ========================================================================== */
-.hero-copy { max-width: 720px; margin: 0 auto; }
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 60px;
+}
+
+.hero-copy { max-width: 720px; }
+
+.hero-copy .eyebrow { justify-content: center; }
 
 .hero-copy h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 14px;
@@ -377,9 +404,9 @@ body.custom-cursor-active .cursor-trail { display: block; }
 
 .hero-desc {
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   max-width: 54ch;
-  margin: 0 auto 28px;
+  margin: 0 auto 32px;
 }
 
 .hero-actions {
@@ -387,7 +414,7 @@ body.custom-cursor-active .cursor-trail { display: block; }
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .hero-socials {
@@ -396,124 +423,42 @@ body.custom-cursor-active .cursor-trail { display: block; }
   justify-content: center;
 }
 
-.footer-note {
+.scroll-cue {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   color: var(--text-dim);
-  margin-top: 26px;
+  animation: driftDown 2.4s ease-in-out infinite;
+}
+
+@keyframes driftDown {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+  50% { transform: translate(-50%, 8px); opacity: 1; }
 }
 
 /* ==========================================================================
-   3D cube — fixed space backdrop stays behind it (see #cosmic-canvas above)
+   Sections (shared)
    ========================================================================== */
-.cube-viewport {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  perspective: 1800px;
-}
-.cube {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
-  will-change: transform;
-}
-.cube-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(68px + 3vh) 4vw 4vh;
-  /* transform (rotateX + translateZ) is assigned per-face in script.js,
-     generalized from the face count rather than hardcoded per index */
-}
-
-/* Frosted-glass panel: each cube face is a physical, translucent pane
-   floating in front of the starfield, not a flat plane of text. */
-.face-panel {
+.section {
   position: relative;
-  width: 100%;
-  max-width: 1080px;
-  height: 100%;
-  max-height: 780px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:
-    0 60px 110px -45px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -60px 100px -60px rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-  padding: 56px;
-}
-.face-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 45%);
-  pointer-events: none;
-}
-.face-panel::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  pointer-events: none;
-}
-.face-panel > .face-inner { position: relative; width: 100%; }
-
-/* ---------- side nav dots ---------- */
-.face-nav {
-  position: fixed;
-  right: 26px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.face-nav button {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid var(--border-glass);
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-}
-.face-nav button[aria-current="true"] {
-  background: var(--cyan);
-  border-color: var(--cyan);
-  box-shadow: 0 0 10px 2px rgba(0, 243, 255, 0.5);
+  z-index: 1;
+  padding: 60px 0;
 }
 
-.swipe-hint {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--text-dim);
-  z-index: 300;
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* ==========================================================================
    About / Skills
@@ -676,6 +621,8 @@ body.custom-cursor-active .cursor-trail { display: block; }
 /* ==========================================================================
    Contact
    ========================================================================== */
+.section-contact { padding-bottom: 100px; }
+
 .contact-row {
   display: flex;
   align-items: center;
@@ -687,11 +634,24 @@ body.custom-cursor-active .cursor-trail { display: block; }
 .contact-socials { display: flex; gap: 10px; }
 
 /* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 26px 24px 40px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 900px) {
   .projects-grid { grid-template-columns: 1fr; }
-  .face-panel { padding: 40px 34px; }
+  .section-panel { padding: 34px 28px 36px; }
 }
 
 @media (max-width: 720px) {
@@ -714,35 +674,17 @@ body.custom-cursor-active .cursor-trail { display: block; }
   .header-actions { display: none; }
   .nav-toggle { display: flex; }
 
+  .section { padding: 44px 0; }
+  .section-panel { padding: 28px 22px 30px; }
   .contact-row { flex-direction: column; align-items: flex-start; }
-}
-
-@media (max-width: 640px) {
-  .cube-face { padding: calc(68px + 2vh) 3vw 3vh; }
-  .face-panel { padding: 32px 22px; border-radius: 16px; }
-  .face-nav { right: 14px; gap: 11px; }
 }
 
 @media (pointer: coarse) {
   .cursor-dot, .cursor-halo, .cursor-trail { display: none !important; }
 }
 
-/* ---------- reduced motion: fall back to a plain stacked, natively
-   scrollable page instead of the 3D paged cube ---------- */
-body.reduced-motion .cube-viewport { position: static; height: auto; perspective: none; overflow: visible; z-index: auto; }
-body.reduced-motion .cube { position: static; transform: none !important; transition: none; height: auto; }
-body.reduced-motion .cube-face {
-  position: static;
-  transform: none !important;
-  min-height: 100vh;
-  height: auto;
-  padding: 100px 4vw 60px;
-}
-body.reduced-motion .face-panel { height: auto; max-height: none; margin: 0 auto; }
-body.reduced-motion .face-nav,
-body.reduced-motion .swipe-hint { display: none; }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .scroll-cue { animation: none; }
   * { transition-duration: 0.001ms !important; }
 }
