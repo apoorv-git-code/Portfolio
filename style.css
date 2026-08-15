@@ -387,7 +387,8 @@ body.custom-cursor-active .cursor-trail { display: block; }
   background: linear-gradient(135deg, #ffffff 30%, #cdd6f0 70%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: #7CE8FF;
+  -webkit-text-fill-color: transparent;
+ color: transparent;
 }
 
 .hero-loc {
