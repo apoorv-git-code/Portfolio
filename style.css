@@ -426,40 +426,25 @@ body.custom-cursor-active .cursor-trail { display: block; }
   justify-content: center;
 }
 
-/* ---------- Particle Disintegration Layout ---------- */
-.scroll-spacer {
-  position: relative;
-  height: 220vh; /* The distance the scroll effect lasts */
-}
-
-.hero-pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-#particle-canvas {
+.scroll-cue {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Lets you click the buttons underneath */
-  z-index: 2; /* Sits above the text so it can overlap */
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  animation: driftDown 2.4s ease-in-out infinite;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-}
-
-/* Turns off the animation for people who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-spacer { height: auto; }
-  .hero-pin { position: static; height: 100vh; }
+@keyframes driftDown {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+  50% { transform: translate(-50%, 8px); opacity: 1; }
 }
 
 /* ==========================================================================
