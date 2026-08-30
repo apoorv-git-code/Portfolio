@@ -16,6 +16,7 @@
   --------------------------------------------------------- */
   var navToggle = document.getElementById("nav-toggle");
   var mainNav = document.getElementById("main-nav");
+
   if (navToggle && mainNav) {
     navToggle.addEventListener("click", function () {
       var isOpen = mainNav.classList.toggle("is-open");
@@ -50,92 +51,93 @@
     revealTargets.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  /* ---------------------------------------------------------
-     3D flip card
-  --------------------------------------------------------- */
-  (function initFlipCard() {
-    var inner = document.getElementById("flip-card-inner");
-    var flipBtnFront = document.getElementById("flip-btn-front");
-    var flipBtnBack = document.getElementById("flip-btn-back");
-    if (!inner) return;
-
-    function setFlipped(flipped) {
-      inner.classList.toggle("is-flipped", flipped);
-    }
-    if (flipBtnFront) flipBtnFront.addEventListener("click", function () { setFlipped(true); });
-    if (flipBtnBack) flipBtnBack.addEventListener("click", function () { setFlipped(false); });
-  })();
-
-  /* ---------------------------------------------------------
-     Mouse-tilt for glass surfaces (fine pointers only):
-     hero flip card + project cards. Each uses a dedicated
-     trigger/target pair so the tilt transform never fights
-     the flip card's own rotateY toggle (different elements).
-  --------------------------------------------------------- */
-  (function initTilt() {
-    if (!isFinePointer || reduceMotion) return;
-
-    function attachTilt(triggerEl, targetEl, maxDeg) {
-      if (!triggerEl || !targetEl) return;
-      triggerEl.addEventListener("mousemove", function (e) {
-        var rect = triggerEl.getBoundingClientRect();
-        var px = (e.clientX - rect.left) / rect.width - 0.5;
-        var py = (e.clientY - rect.top) / rect.height - 0.5;
-        targetEl.style.transition = "none";
-        targetEl.style.transform = "rotateX(" + (-py * maxDeg).toFixed(2) + "deg) rotateY(" + (px * maxDeg).toFixed(2) + "deg)";
-      });
-      triggerEl.addEventListener("mouseleave", function () {
-        targetEl.style.transition = "transform 0.5s ease";
-        targetEl.style.transform = "rotateX(0deg) rotateY(0deg)";
-      });
-    }
-
-    attachTilt(document.querySelector(".flip-card"), document.getElementById("flip-tilt"), 7);
-    document.querySelectorAll(".project-card.tilt").forEach(function (card) {
-      attachTilt(card, card, 6);
-    });
-  })();
-
   /* ===========================================================
-     CUSTOM CURSOR: glowing point + spawned stardust trail
+     CUSTOM CURSOR
   =========================================================== */
   (function initCursor() {
     if (!isFinePointer) return;
+
     document.body.classList.add("custom-cursor-active");
 
-    var point = document.getElementById("cursor-point");
-    var canvas = document.getElementById("cursor-canvas");
-    var ctx = canvas.getContext("2d");
+    var dot = document.getElementById("cursor-dot");
+    var halo = document.getElementById("cursor-halo");
+    var trailEls = document.querySelectorAll(".cursor-trail span");
 
     var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    var hoverSelector = "a, button, .badge, .icon-btn, .project-card";
+    var dotPos = { x: mouse.x, y: mouse.y };
+    var haloPos = { x: mouse.x, y: mouse.y };
+    var trailPos = [];
+    trailEls.forEach(function () { trailPos.push({ x: mouse.x, y: mouse.y }); });
 
+    window.addEventListener("pointermove", function (e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }, { passive: true });
+
+    // Hover state via event delegation
+    var hoverSelector = "a, button, .badge, .icon-btn, .project-card";
     document.addEventListener("pointerover", function (e) {
-      if (e.target.closest && e.target.closest(hoverSelector)) document.body.classList.add("cursor-hover");
+      if (e.target.closest && e.target.closest(hoverSelector)) {
+        document.body.classList.add("cursor-hover");
+      }
     });
     document.addEventListener("pointerout", function (e) {
-      if (e.target.closest && e.target.closest(hoverSelector)) document.body.classList.remove("cursor-hover");
+      if (e.target.closest && e.target.closest(hoverSelector)) {
+        document.body.classList.remove("cursor-hover");
+      }
     });
 
-    if (reduceMotion) {
-      // Simple 1:1 tracking, no trail, no rAF loop — a functional
-      // pointer replacement without adding decorative motion.
-      window.addEventListener("pointermove", function (e) {
-        point.style.transform = "translate3d(" + e.clientX + "px," + e.clientY + "px,0) translate(-50%,-50%)";
-      }, { passive: true });
-      return;
+    function cursorLoop() {
+      dotPos.x += (mouse.x - dotPos.x) * 0.9;
+      dotPos.y += (mouse.y - dotPos.y) * 0.9;
+      haloPos.x += (mouse.x - haloPos.x) * 0.16;
+      haloPos.y += (mouse.y - haloPos.y) * 0.16;
+
+      if (dot) dot.style.transform = "translate3d(" + dotPos.x + "px," + dotPos.y + "px,0) translate(-50%,-50%)";
+      if (halo) halo.style.transform = "translate3d(" + haloPos.x + "px," + haloPos.y + "px,0) translate(-50%,-50%)";
+
+      var target = mouse;
+      for (var i = 0; i < trailPos.length; i++) {
+        var f = 0.32 - i * 0.055;
+        trailPos[i].x += (target.x - trailPos[i].x) * f;
+        trailPos[i].y += (target.y - trailPos[i].y) * f;
+        trailEls[i].style.transform =
+          "translate3d(" + trailPos[i].x + "px," + trailPos[i].y + "px,0) translate(-50%,-50%)";
+        target = trailPos[i];
+      }
+
+      requestAnimationFrame(cursorLoop);
     }
+    cursorLoop();
+  })();
+
+  /* ===========================================================
+     STARFIELD: lightweight interactive space-dust canvas
+  =========================================================== */
+  (function initStarfield() {
+    var canvas = document.getElementById("cosmic-canvas");
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
 
     var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var width = window.innerWidth;
     var height = window.innerHeight;
-    var pointPos = { x: mouse.x, y: mouse.y };
-    var particles = [];
-    var MAX_PARTICLES = 36;
-    var lastSpawn = { x: mouse.x, y: mouse.y };
-    var COLORS = ["0,243,255", "255,107,0", "255,255,255"]; // cyan, amber, white
 
-    function resize() {
+
+    var lowPower = (navigator.hardwareConcurrency || 4) <= 4;
+
+    var mouse = { x: width / 2, y: height / 2, active: false };
+    var stars = [];
+    var heroEl = document.getElementById("top");
+    var heroVisible = true;
+
+    var PALETTE = [
+      "255,255,255", // soft white
+      "160,220,255", // ambient cyan/blue
+      "255,196,120"  // amber highlight
+    ];
+
+    function resizeCanvas() {
       width = window.innerWidth;
       height = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -144,95 +146,182 @@
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      createStars();
     }
 
-    function spawnParticle(x, y) {
-      // Bounded array: never grows past MAX_PARTICLES, and dead
-      // particles are spliced out every frame in the loop below —
-      // no unbounded growth, nothing left dangling for GC to chase.
-      if (particles.length >= MAX_PARTICLES) return;
-      particles.push({
-        x: x, y: y,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6 - 0.12,
-        size: 1.4 + Math.random() * 2.1,
-        life: 1,
-        decay: 0.018 + Math.random() * 0.022,
-        rgb: COLORS[Math.floor(Math.random() * COLORS.length)]
-      });
-    }
+    function createStars() {
+      var count = Math.round((width * height) / 9000);
+      count = Math.max(80, Math.min(count, 150));
+      if (lowPower) count = Math.round(count * 0.7);
 
-    window.addEventListener("pointermove", function (e) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      var dx = mouse.x - lastSpawn.x;
-      var dy = mouse.y - lastSpawn.y;
-      if (Math.sqrt(dx * dx + dy * dy) > 6) {
-        spawnParticle(mouse.x, mouse.y);
-        lastSpawn.x = mouse.x;
-        lastSpawn.y = mouse.y;
+      stars = [];
+      for (var i = 0; i < count; i++) {
+        var x = Math.random() * width;
+        var y = Math.random() * height;
+        var colorRoll = Math.random();
+        stars.push({
+          x: x, y: y, baseX: x, baseY: y,
+          vx: (Math.random() - 0.5) * 0.06,
+          vy: (Math.random() - 0.5) * 0.06,
+          r: 0.7 + Math.random() * 1.7,
+          alphaBase: 0.35 + Math.random() * 0.6,
+          twinkleSpeed: 0.4 + Math.random() * 1.5,
+          phase: Math.random() * TAU,
+          rgb: colorRoll < 0.72 ? PALETTE[0] : colorRoll < 0.9 ? PALETTE[1] : PALETTE[2]
+        });
       }
-    }, { passive: true });
+    }
 
-    var running = true;
-    function loop() {
-      if (!running) return;
+    function update(dt) {
+      var repelRadius = 130;
+      var repelStrength = 0.9;
+      var spring = 0.012;
+      var damping = 0.92;
+      var stepScale = dt / 16.67; // frame-rate independent motion
 
-      pointPos.x += (mouse.x - pointPos.x) * 0.15;
-      pointPos.y += (mouse.y - pointPos.y) * 0.15;
-      point.style.transform = "translate3d(" + pointPos.x + "px," + pointPos.y + "px,0) translate(-50%,-50%)";
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
 
+        // drift
+        s.baseX += s.vx * stepScale;
+        s.baseY += s.vy * stepScale;
+        if (s.baseX < -20) s.baseX = width + 20;
+        if (s.baseX > width + 20) s.baseX = -20;
+        if (s.baseY < -20) s.baseY = height + 20;
+        if (s.baseY > height + 20) s.baseY = -20;
+
+        if (mouse.active) {
+          var dx = s.x - mouse.x;
+          var dy = s.y - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy) + 0.001;
+          if (dist < repelRadius) {
+            // gentle repulsion near the cursor, easing off with distance
+            var force = (1 - dist / repelRadius) * repelStrength;
+            s.x += (dx / dist) * force * stepScale;
+            s.y += (dy / dist) * force * stepScale;
+          }
+        }
+
+        // spring back toward drifting base position
+        s.x += (s.baseX - s.x) * spring * stepScale;
+        s.y += (s.baseY - s.y) * spring * stepScale;
+      }
+    }
+
+    function draw(now) {
       ctx.clearRect(0, 0, width, height);
-      for (var i = particles.length - 1; i >= 0; i--) {
-        var p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life -= p.decay;
-        if (p.life <= 0) { particles.splice(i, 1); continue; }
-        var size = p.size * p.life;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var twinkle = 0.5 + 0.5 * Math.sin(now * 0.0016 * s.twinkleSpeed + s.phase);
+        var alpha = s.alphaBase * (0.4 + 0.6 * twinkle);
+
         ctx.beginPath();
-        ctx.fillStyle = "rgba(" + p.rgb + "," + (p.life * 0.8).toFixed(3) + ")";
-        ctx.arc(p.x, p.y, size, 0, TAU);
+        ctx.fillStyle = "rgba(" + s.rgb + "," + alpha.toFixed(3) + ")";
+        ctx.arc(s.x, s.y, s.r, 0, TAU);
         ctx.fill();
       }
-      requestAnimationFrame(loop);
     }
 
-    document.addEventListener("visibilitychange", function () {
-      running = !document.hidden;
-      if (running) requestAnimationFrame(loop);
+    /* ---------- main loop ---------- */
+    var lastTime = performance.now();
+    var running = true;
+
+    function frame(now) {
+      if (!running) return;
+      var dt = Math.min(now - lastTime, 48);
+      lastTime = now;
+
+      if (heroVisible) {
+        update(dt);
+        draw(now);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function frameStatic() {
+      ctx.clearRect(0, 0, width, height);
+      draw(0);
+    }
+
+    /* ---------- events ---------- */
+    window.addEventListener("mousemove", function (e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive: true });
+
+    window.addEventListener("mouseleave", function () {
+      mouse.active = false;
     });
 
     var resizeTimer;
     window.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 150);
+      resizeTimer = setTimeout(function () {
+        resizeCanvas();
+        if (reduceMotion) frameStatic();
+      }, 150);
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          resizeCanvas();
+          if (reduceMotion) frameStatic();
+        }, 150);
+      });
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      running = !document.hidden && heroVisible;
+      if (running && !reduceMotion) {
+        lastTime = performance.now();
+        requestAnimationFrame(frame);
+      }
     });
 
-    resize();
-    requestAnimationFrame(loop);
+    // Pause entirely once scrolled past the hero section.
+    if (heroEl && "IntersectionObserver" in window) {
+      var heroObserver = new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        running = heroVisible && !document.hidden;
+        if (running && !reduceMotion) {
+          lastTime = performance.now();
+          requestAnimationFrame(frame);
+        }
+      }, { threshold: 0 });
+      heroObserver.observe(heroEl);
+    }
+
+    /* ---------- init ---------- */
+    resizeCanvas();
+
+    if (reduceMotion) {
+      frameStatic();
+    } else {
+      requestAnimationFrame(frame);
+    }
   })();
 
   /* ===========================================================
-     COSMIC SCENE: Gargantua-style black hole + starfield,
-     fixed behind the whole page. The hero's flip-card front
-     face is a blurred glass pane sitting in front of it, which
-     is what makes the black hole read as "on" the card.
+     REMOVED: black hole scene (event horizon, accretion disk,
+     lensing jets). Kept disabled below intentionally removed —
+     see initStarfield above for the replacement background.
   =========================================================== */
-  (function initCosmicScene() {
+  (function initCosmicSceneDISABLED() {
+    if (true) return;
     var canvas = document.getElementById("cosmic-canvas");
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext("2d");
 
-    var lowPower = (navigator.hardwareConcurrency || 4) <= 4;
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var width = window.innerWidth;
     var height = window.innerHeight;
 
     var mouse = { x: width / 2, y: height * 0.42 };
     var pointerActive = false; // true while pointer is over the hero section
 
-    var baseCenter = { x: width / 2, y: height * 0.46 };
+    var baseCenter = { x: width / 2, y: height * 0.44 };
     var offset = { x: 0, y: 0 };
     var targetOffset = { x: 0, y: 0 };
     var center = { x: baseCenter.x, y: baseCenter.y };
@@ -243,9 +332,9 @@
     var diskParticles = [];
     var shockwaves = [];
 
-    var glowAmber, glowCyan, glowWhite;
+    var glowGold, glowCyan, glowWhite;
 
-    /* ---------- sprite generation (avoids per-particle shadowBlur/gradient cost) ---------- */
+    /* ---------- sprite generation (avoids per-particle shadowBlur cost) ---------- */
     function makeGlowSprite(rgb, size) {
       var c = document.createElement("canvas");
       c.width = c.height = size;
@@ -267,13 +356,13 @@
       scale.outerR = scale.bhRadius * 6.4;
       scale.proximityRadius = scale.outerR * 1.5;
       baseCenter.x = width / 2;
-      baseCenter.y = height * 0.46;
+      baseCenter.y = height * 0.5;
     }
 
     function resizeCanvas() {
       width = window.innerWidth;
       height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = width + "px";
@@ -284,11 +373,11 @@
       createDiskParticles();
     }
 
-    /* ---------- starfield, with gravitational attraction toward the cursor ---------- */
+    /* ---------- starfield ---------- */
     function createStars() {
       var count = Math.round((width * height) / 8500);
-      count = Math.max(80, Math.min(count, 240));
-      if (lowPower) count = Math.round(count * 0.65);
+      count = Math.max(90, Math.min(count, 260));
+
       stars = [];
       for (var i = 0; i < count; i++) {
         var x = Math.random() * width;
@@ -305,14 +394,15 @@
       }
     }
 
-    function updateStars() {
-      var attractRadius = 190;
-      var attractStrength = 0.06;
+    function updateStars(dt, now) {
+      var attractRadius = 170;
+      var attractStrength = 0.055;
       var spring = 0.02;
       var damping = 0.9;
 
       for (var i = 0; i < stars.length; i++) {
         var s = stars[i];
+
         if (pointerActive) {
           var dx = mouse.x - s.x;
           var dy = mouse.y - s.y;
@@ -323,6 +413,7 @@
             s.vy += (dy / dist) * force;
           }
         }
+
         s.vx += (s.baseX - s.x) * spring;
         s.vy += (s.baseY - s.y) * spring;
         s.vx *= damping;
@@ -337,6 +428,7 @@
         var s = stars[i];
         var twinkle = 0.5 + 0.5 * Math.sin(now * 0.0015 * s.twinkleSpeed + s.phase);
         var alpha = s.alphaBase * (0.4 + 0.6 * twinkle);
+
         if (s.bright) {
           var glowSize = s.r * 9;
           ctx.globalAlpha = alpha * 0.8;
@@ -351,10 +443,10 @@
       ctx.globalAlpha = 1;
     }
 
-    /* ---------- accretion disk particles (Keplerian: inner particles orbit faster) ---------- */
+    /* ---------- accretion disk particles ---------- */
     function createDiskParticles() {
       var count = width < 640 ? 90 : 170;
-      if (lowPower) count = Math.round(count * 0.65);
+
       diskParticles = [];
       for (var i = 0; i < count; i++) {
         var r = scale.innerR + Math.random() * (scale.outerR - scale.innerR);
@@ -370,8 +462,8 @@
 
     function diskColor(t) {
       // t: 0 (inner, hot) -> 1 (outer, cooler)
-      var r1 = 255, g1 = 245, b1 = 220; // hot near-white
-      var r2 = 255, g2 = 107, b2 = 0;   // deep amber/orange
+      var r1 = 255, g1 = 245, b1 = 220; // hot near-white gold
+      var r2 = 255, g2 = 100, b2 = 20;  // deep orange
       var r = Math.round(r1 + (r2 - r1) * t);
       var g = Math.round(g1 + (g2 - g1) * t);
       var b = Math.round(b1 + (b2 - b1) * t);
@@ -379,7 +471,7 @@
     }
 
     function updateDiskParticles(dt, speedMultiplier) {
-      var K = 5200;
+      var K = 5200; // keplerian constant (tuned for visual speed)
       for (var i = 0; i < diskParticles.length; i++) {
         var p = diskParticles[i];
         var angularSpeed = K / Math.pow(p.radius, 1.5);
@@ -396,6 +488,7 @@
         var x = center.x + Math.cos(p.angle) * r;
         var y = center.y + Math.sin(p.angle) * r * flattenY;
 
+        // occlude particles passing directly behind the event horizon
         var behind = Math.sin(p.angle) > 0 && Math.abs(Math.cos(p.angle)) < 0.55 && r < scale.innerR * 1.05;
         if (behind) continue;
 
@@ -406,7 +499,7 @@
 
         var glowSize = p.size * 10;
         ctx.globalAlpha = Math.min(1, alpha * 0.7);
-        ctx.drawImage(glowAmber, x - glowSize / 2, y - glowSize / 2, glowSize, glowSize);
+        ctx.drawImage(glowGold, x - glowSize / 2, y - glowSize / 2, glowSize, glowSize);
 
         ctx.globalAlpha = Math.min(1, alpha + 0.15);
         ctx.fillStyle = "rgba(" + rgb + ",1)";
@@ -417,34 +510,40 @@
       ctx.globalAlpha = 1;
     }
 
-    /* ---------- lensing arcs: soft, tapered, fade out well before the navbar ---------- */
+    /* ---------- lensing arc (Gargantua-style bent light above the horizon) ---------- */
     function drawLensingArcs(glowBoost) {
-      var topSafeZone = 96;
+      // Fade the beams out well before they reach the navbar, and make sure
+      // they never intercept clicks/hover near the header.
+      var topSafeZone = 96; // px below the viewport top where beams must be ~invisible
       var topFade = clamp((center.y - topSafeZone) / (scale.outerR * 1.12), 0, 1);
       if (topFade <= 0) return;
 
       ctx.save();
       ctx.translate(center.x, center.y);
-      ctx.filter = "blur(6px)";
-      drawTaperedArcBeam(scale.bhRadius * 1.55, scale.outerR * 1.12, Math.max(2.4, scale.bhRadius * 0.06), 0.45 * glowBoost * topFade, "255,214,150");
-      drawTaperedArcBeam(scale.bhRadius * 1.3, scale.outerR * 0.9, Math.max(1.8, scale.bhRadius * 0.04), 0.24 * glowBoost * topFade, "0,243,255");
+      ctx.filter = "blur(6px)"; // soften hard stroke edges into volumetric light
+
+      drawTaperedArcBeam(scale.bhRadius * 1.55, scale.outerR * 1.12, Math.max(2.4, scale.bhRadius * 0.06), 0.5 * glowBoost * topFade, "255,214,150");
+      drawTaperedArcBeam(scale.bhRadius * 1.3, scale.outerR * 0.9, Math.max(1.8, scale.bhRadius * 0.04), 0.28 * glowBoost * topFade, "255,180,110");
+
       ctx.filter = "none";
       ctx.restore();
       ctx.globalAlpha = 1;
     }
 
+    // Draws a vertical light-beam arc built from short segments whose alpha
+    // tapers to 0 near the top, instead of one hard-edged uniform stroke.
     function drawTaperedArcBeam(rx, ry, lineWidth, baseAlpha, rgb) {
       var startAngle = Math.PI * 1.02;
       var endAngle = Math.PI * 1.98;
-      var steps = 26;
+      var steps = 28;
       ctx.lineWidth = lineWidth;
       ctx.lineCap = "round";
       for (var i = 0; i < steps; i++) {
         var a0 = startAngle + ((endAngle - startAngle) * i) / steps;
         var a1 = startAngle + ((endAngle - startAngle) * (i + 1)) / steps;
         var midAngle = (a0 + a1) / 2;
-        var y = Math.sin(midAngle) * ry;
-        var heightFrac = clamp(-y / ry, 0, 1);
+        var y = Math.sin(midAngle) * ry; // negative = above center, toward the top
+        var heightFrac = clamp(-y / ry, 0, 1); // 0 at the disk plane, 1 at the very top
         var segAlpha = baseAlpha * (1 - Math.pow(heightFrac, 1.6));
         if (segAlpha <= 0.004) continue;
         ctx.globalAlpha = segAlpha;
@@ -455,37 +554,63 @@
       }
     }
 
-    /* ---------- event horizon (gradients cached, rebuilt only on resize/recenter) ---------- */
+    /* ---------- event horizon ---------- */
     function drawEventHorizon(glowBoost) {
+      // outer ambient glow
       var g = ctx.createRadialGradient(
+
+
         center.x, center.y, scale.bhRadius * 0.6,
         center.x, center.y, scale.bhRadius * 4.2
       );
       g.addColorStop(0, "rgba(255,170,80," + (0.35 * glowBoost) + ")");
-      g.addColorStop(0.4, "rgba(255,107,0," + (0.12 * glowBoost) + ")");
-      g.addColorStop(1, "rgba(255,107,0,0)");
+      g.addColorStop(0.4, "rgba(255,120,30," + (0.12 * glowBoost) + ")");
+      g.addColorStop(1, "rgba(255,120,30,0)");
       ctx.fillStyle = g;
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.beginPath();
       ctx.arc(center.x, center.y, scale.bhRadius * 4.2, 0, TAU);
       ctx.fill();
 
-      // relativistic (Doppler) beaming: approaching edge reads brighter/blue-shifted
+
+      // relativistic (Doppler) beaming: the approaching edge of the disk
+      // reads brighter and blue-shifted, as in the real Gargantua render
       var cyanSize = scale.bhRadius * 5.2;
       ctx.globalAlpha = 0.4 * glowBoost;
-      ctx.drawImage(glowCyan, center.x - scale.bhRadius * 1.6 - cyanSize / 2, center.y - cyanSize / 2, cyanSize, cyanSize);
+      ctx.drawImage(
+        glowCyan,
+        center.x - scale.bhRadius * 1.6 - cyanSize / 2,
+        center.y - cyanSize / 2,
+        cyanSize, cyanSize
+      );
       ctx.globalAlpha = 1;
 
-      // pure black core — always fully opaque regardless of glow, so
-      // any text placed over it keeps full contrast
+      // pure black core
       ctx.fillStyle = "#000000";
       ctx.beginPath();
       ctx.arc(center.x, center.y, scale.bhRadius, 0, TAU);
       ctx.fill();
 
-      var rimGrad = ctx.createLinearGradient(center.x - scale.bhRadius, center.y, center.x + scale.bhRadius, center.y);
+      // thin bright rim (gravitational lensing edge)
+      var rimGrad = ctx.createLinearGradient(
+        center.x - scale.bhRadius, center.y,
+        center.x + scale.bhRadius, center.y
+      );
       rimGrad.addColorStop(0, "rgba(0,243,255,0.55)");
       rimGrad.addColorStop(0.5, "rgba(255,255,255,0.9)");
-      rimGrad.addColorStop(1, "rgba(255,140,50,0.6)");
+      rimGrad.addColorStop(1, "rgba(255,170,60,0.6)");
       ctx.strokeStyle = rimGrad;
       ctx.lineWidth = Math.max(1.2, scale.bhRadius * 0.055) * (1 + glowBoost * 0.4);
       ctx.globalAlpha = 0.75 * glowBoost;
@@ -495,7 +620,7 @@
       ctx.globalAlpha = 1;
     }
 
-    /* ---------- click-triggered gravitational wave shockwave ---------- */
+    /* ---------- gravitational wave shockwaves ---------- */
     function triggerShockwave() {
       if (reduceMotion) return;
       shockwaves.push({ radius: scale.bhRadius, life: 1 });
@@ -506,7 +631,10 @@
         var w = shockwaves[i];
         w.radius += dt * 0.9;
         w.life -= dt * 0.0016;
-        if (w.life <= 0) { shockwaves.splice(i, 1); continue; }
+        if (w.life <= 0) {
+          shockwaves.splice(i, 1);
+          continue;
+        }
         var band = 46;
         for (var j = 0; j < diskParticles.length; j++) {
           var p = diskParticles[j];
@@ -535,8 +663,6 @@
       ctx.globalAlpha = 1;
     }
 
-    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-
     /* ---------- main loop ---------- */
     var lastTime = performance.now();
     var running = true;
@@ -548,7 +674,7 @@
 
       ctx.clearRect(0, 0, width, height);
 
-      // core displacement: lerps toward the cursor, clamped to a small radius
+      // black hole center: subtle lerp toward mouse when pointer is over hero
       if (pointerActive) {
         targetOffset.x = clamp((mouse.x - baseCenter.x) * 0.05, -50, 50);
         targetOffset.y = clamp((mouse.y - baseCenter.y) * 0.05, -34, 34);
@@ -562,11 +688,13 @@
       center.y = baseCenter.y + offset.y;
 
       var distToCenter = Math.hypot(mouse.x - center.x, mouse.y - center.y);
-      var proximity = pointerActive ? clamp(1 - distToCenter / scale.proximityRadius, 0, 1) : 0;
+      var proximity = pointerActive
+        ? clamp(1 - distToCenter / scale.proximityRadius, 0, 1)
+        : 0;
       var speedMultiplier = 1 + proximity * 2.4;
       var glowBoost = 1 + proximity * 0.9;
 
-      updateStars();
+      updateStars(dt, now);
       drawStars(now);
 
       updateDiskParticles(dt, speedMultiplier);
@@ -581,12 +709,15 @@
     }
 
     function frameStatic() {
+      // Reduced-motion fallback: a single, still render.
       ctx.clearRect(0, 0, width, height);
       drawStars(0);
       drawEventHorizon(1);
       drawDiskParticles(0, 1);
       drawLensingArcs(1);
     }
+
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
     /* ---------- events ---------- */
     var heroEl = document.getElementById("top");
@@ -601,7 +732,9 @@
       heroEl.addEventListener("pointerleave", function () { pointerActive = false; });
     }
 
-    document.addEventListener("click", function () { triggerShockwave(); });
+    document.addEventListener("click", function () {
+      triggerShockwave();
+    });
 
     var resizeTimer;
     function scheduleResize() {
@@ -612,7 +745,9 @@
       }, 150);
     }
     window.addEventListener("resize", scheduleResize);
-    if (window.visualViewport) window.visualViewport.addEventListener("resize", scheduleResize);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", scheduleResize);
+    }
 
     document.addEventListener("visibilitychange", function () {
       running = !document.hidden;
@@ -623,7 +758,7 @@
     });
 
     /* ---------- init ---------- */
-    glowAmber = makeGlowSprite("255,150,50", 96);
+    glowGold = makeGlowSprite("255,170,60", 96);
     glowCyan = makeGlowSprite("0,243,255", 96);
     glowWhite = makeGlowSprite("255,255,255", 48);
 
