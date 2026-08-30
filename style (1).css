@@ -110,26 +110,20 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   position: fixed;
   top: 0;
   left: 0;
-  width: 9px;
-  height: 9px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 12px 3px var(--cyan-glow);
+  background: radial-gradient(circle, var(--cyan-glow) 0%, rgba(0,243,255,0.08) 40%, transparent 70%);
   pointer-events: none;
   z-index: 9999;
   will-change: transform;
   transform: translate3d(-50%, -50%, 0);
   display: none;
+  filter: blur(2px);
 }
 
-body.custom-cursor-active .cursor-point,
-body.custom-cursor-active #cursor-canvas { display: block; }
-
 body.cursor-hover .cursor-point {
-  background: var(--amber);
-  box-shadow: 0 0 16px 4px var(--amber-glow);
-  width: 13px;
-  height: 13px;
+  background: radial-gradient(circle, var(--amber-glow) 0%, rgba(255,107,0,0.1) 40%, transparent 70%);
 }
 
 /* ==========================================================================
