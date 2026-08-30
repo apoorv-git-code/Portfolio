@@ -178,8 +178,8 @@
     function loop() {
       if (!running) return;
 
-      pointPos.x += (mouse.x - pointPos.x) * 0.55;
-      pointPos.y += (mouse.y - pointPos.y) * 0.55;
+      pointPos.x += (mouse.x - pointPos.x) * 0.15;
+      pointPos.y += (mouse.y - pointPos.y) * 0.15;
       point.style.transform = "translate3d(" + pointPos.x + "px," + pointPos.y + "px,0) translate(-50%,-50%)";
 
       ctx.clearRect(0, 0, width, height);
