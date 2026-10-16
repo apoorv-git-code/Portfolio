@@ -23,3 +23,5 @@ If you'd like to view or modify this project on your local machine, follow these
 1. Clone the repository:
    ```bash
    git clone [https://github.com/apoorv-git-code/Portfolio.git](https://github.com/apoorv-git-code/Portfolio.git)
+
+#Further steps gonna be added soon... Really need the motivation to continue this ngl 😢
