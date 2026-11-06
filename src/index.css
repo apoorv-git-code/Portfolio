@@ -1,0 +1,69 @@
+/*
+ * src/index.css
+ *
+ * If `npx shadcn@latest init` already generated this file, KEEP its
+ * @import "tw-animate-css", @custom-variant and @theme inline blocks and only
+ * replace the :root values below with these brand-mapped ones.
+ */
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  /* Portfolio palette (from the original style.css) */
+  --void: #05050a;
+  --void-alt: #08080f;
+  --text: #eef1fa;
+  --text-muted: #9aa3ba;
+  --text-dim: #5e6478;
+  --gold: #ff8c00;
+  --cyan: #00f3ff;
+
+  /* shadcn/ui tokens mapped onto it */
+  --radius: 0.5625rem; /* 9px: the original --radius-sm used on buttons */
+  --background: #05050a;
+  --foreground: #eef1fa;
+  --card: #08080f;
+  --card-foreground: #eef1fa;
+  --popover: #08080f;
+  --popover-foreground: #eef1fa;
+  --primary: #ff8c00;
+  --primary-foreground: #170a00;
+  --secondary: rgba(255, 255, 255, 0.045);
+  --secondary-foreground: #eef1fa;
+  --muted: rgba(255, 255, 255, 0.045);
+  --muted-foreground: #9aa3ba;
+  --accent: #00f3ff;
+  --accent-foreground: #04141a;
+  --destructive: #ff5c5c;
+  --border: rgba(255, 255, 255, 0.09);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: #00f3ff;
+}
+
+html {
+  background: var(--void);
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px; /* clears the floating navbar on anchor jumps */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(0, 243, 255, 0.25);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
