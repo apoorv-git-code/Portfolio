@@ -366,7 +366,16 @@ export function ContactSection() {
             >
               {EMAIL}
             </a>
-            <div className="flex gap-[10px]">
+            <div className="flex items-center gap-[10px]">
+              <a
+                href={`${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-[38px] items-center rounded-[9px] border border-[#ff8c00]/60 bg-[#ff8c00]/10 px-4 text-[0.85rem] font-medium text-[#ffb454] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00f3ff] hover:text-[#00f3ff] [@media(pointer:coarse)]:h-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+                style={MONO}
+              >
+                Resume (PDF)
+              </a>
               <IconLink href={GITHUB} label="GitHub profile" path={GITHUB_PATH} />
               <IconLink href={LINKEDIN} label="LinkedIn profile" path={LINKEDIN_PATH} />
             </div>

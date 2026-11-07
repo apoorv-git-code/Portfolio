@@ -32,6 +32,7 @@ const CONTENT = {
     "Driven by curiosity about high-load systems. Currently learning to reason about threads, locks, and distributed state, aiming to bridge the gap between application logic and rock-solid infrastructure !",
   primaryCta: { label: "View projects", href: "#projects" },
   secondaryCta: { label: "Get in touch", href: "#contact" },
+  resumeCta: { label: "Resume", href: `${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf` },
   github: "https://github.com/apoorv-git-code",
   linkedin: "https://linkedin.com/in/apoorv-mishra07",
 } as const
@@ -439,6 +440,24 @@ export function HorizonHeroSection({ className }: { className?: string }) {
                 }}
               >
                 {CONTENT.secondaryCta.label}
+              </a>
+              <a
+                href={CONTENT.resumeCta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open resume (PDF, opens in a new tab)"
+                className="inline-flex items-center gap-2 rounded-[9px] border bg-white/[0.02] px-6 py-[13px] text-[0.9rem] font-medium backdrop-blur-[6px] transition-all duration-200 hover:-translate-y-0.5 hover:!border-[#00f3ff] hover:text-[#00f3ff] hover:shadow-[0_16px_32px_-18px_rgba(0,243,255,0.5)] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+                style={{
+                  fontFamily: FONT.mono,
+                  color: BRAND.gold,
+                  borderColor: BRAND.gold,
+                }}
+              >
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 3v5h5M9 13h6M9 17h6" />
+                </svg>
+                {CONTENT.resumeCta.label}
               </a>
             </div>
 

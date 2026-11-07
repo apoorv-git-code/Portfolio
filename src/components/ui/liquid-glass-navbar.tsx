@@ -23,7 +23,7 @@ import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from "react"
-import { Briefcase, FolderGit2, Mail, User, type LucideIcon } from "lucide-react"
+import { Briefcase, FileText, FolderGit2, Mail, User, type LucideIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils"
 const BRAND_NAME = "Apoorv Mishra"
 const GITHUB = "https://github.com/apoorv-git-code"
 const LINKEDIN = "https://linkedin.com/in/apoorv-mishra07"
+const RESUME = `${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf`
 
 const NAV_ITEMS: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "about", label: "About", icon: User },
@@ -562,13 +563,15 @@ export function LiquidGlassNavbar({ className }: { className?: string }) {
             ))}
 
             {/* Socials: hidden in the bar on mobile (as original), offered in the menu instead */}
-            <div className="hidden gap-[10px] border-t border-dashed border-white/[0.09] px-2 pb-1 pt-3 max-[720px]:flex">
+            <div className="hidden items-center gap-[10px] border-t border-dashed border-white/[0.09] px-2 pb-1 pt-3 max-[720px]:flex">
+              <ResumeLink />
               <SocialLink href={GITHUB} label="GitHub profile" path={GITHUB_PATH} />
               <SocialLink href={LINKEDIN} label="LinkedIn profile" path={LINKEDIN_PATH} />
             </div>
           </nav>
 
-          <div className="flex gap-[10px] max-[720px]:hidden">
+          <div className="flex items-center gap-[10px] max-[720px]:hidden">
+            <ResumeLink />
             <SocialLink href={GITHUB} label="GitHub profile" path={GITHUB_PATH} />
             <SocialLink href={LINKEDIN} label="LinkedIn profile" path={LINKEDIN_PATH} />
           </div>
@@ -614,6 +617,22 @@ const GITHUB_PATH =
   "M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55v-1.94c-3.17.69-3.83-1.53-3.83-1.53-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.74 2.66 1.24 3.31.95.1-.73.4-1.24.72-1.53-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.16-3.06-.12-.29-.5-1.45.11-3.02 0 0 .95-.3 3.11 1.17.9-.25 1.87-.38 2.83-.38.96 0 1.93.13 2.83.38 2.16-1.47 3.11-1.17 3.11-1.17.61 1.57.23 2.73.11 3.02.72.8 1.16 1.82 1.16 3.06 0 4.37-2.66 5.34-5.2 5.62.41.36.77 1.06.77 2.14v3.17c0 .3.2.66.79.55 4.51-1.51 7.77-5.76 7.77-10.78C23.25 5.48 18.27.5 12 .5z"
 const LINKEDIN_PATH =
   "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
+
+function ResumeLink() {
+  return (
+    <a
+      href={RESUME}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open resume (PDF, opens in a new tab)"
+      className="inline-flex h-[38px] items-center gap-2 whitespace-nowrap rounded-[9px] border border-[#ff8c00]/60 bg-[#ff8c00]/10 px-3 text-[0.82rem] font-medium text-[#ffb454] transition-colors duration-200 hover:border-[#00f3ff] hover:text-[#00f3ff] [@media(pointer:coarse)]:h-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+      style={{ fontFamily: FONT_MONO }}
+    >
+      <FileText className="h-[15px] w-[15px]" strokeWidth={2} aria-hidden="true" />
+      Resume
+    </a>
+  )
+}
 
 function SocialLink({ href, label, path }: { href: string; label: string; path: string }) {
   return (
