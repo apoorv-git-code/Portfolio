@@ -29,7 +29,7 @@ const CONTENT = {
   name: "Apoorv Mishra",
   location: "Chandigarh, India",
   description:
-    "Driven by curiosity about high-load systems. Currently learning to reason about threads, locks, and distributed state, aiming to bridge the gap between application logic and rock-solid infrastructure !",
+    "Curious about high-load systems. Learning threads, locks, and distributed state to bridge application logic with rock-solid infrastructure.",
   primaryCta: { label: "View projects", href: "#projects" },
   secondaryCta: { label: "Get in touch", href: "#contact" },
   resumeCta: { label: "Resume", href: `${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf` },

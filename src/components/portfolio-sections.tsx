@@ -11,6 +11,7 @@ import { FileText } from "lucide-react"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
 import { CrowdCanvas } from "@/components/ui/skiper39"
+import { FlipCard } from "@/components/ui/flip-card"
 import { RESUME } from "@/lib/site-links"
 import { cn } from "@/lib/utils"
 
@@ -24,7 +25,7 @@ const EMAIL = "apoorvmishra2007@gmail.com"
 
 const ABOUT = {
   statement:
-    "Driven by curiosity about high-load systems. Currently learning to reason about threads, locks, and distributed state, aiming to bridge the gap between application logic and rock-solid infrastructure !",
+    "Curious about high-load systems. Learning threads, locks, and distributed state to bridge application logic with rock-solid infrastructure.",
   lede: "Computer Science & Engineering graduate specializing in AI/ML and backend & systems engineering — comfortable moving between model logic and the concurrent, distributed infrastructure that has to run it correctly.",
   skills: [
     "Python",
@@ -210,29 +211,62 @@ export function AboutSection() {
   return (
     <Section id="about" className="pt-[90px]">
       <Reveal>
-        <Panel>
-          <Eyebrow tag="LOG_01">Profile</Eyebrow>
-          <SectionTitle>Core focus</SectionTitle>
-          <p
-            className="mb-5 max-w-[46ch] font-medium leading-[1.25] tracking-[-0.01em] text-[#eef1fa]"
-            style={{ ...DISPLAY, fontSize: "clamp(1.25rem, 2.2vw, 1.6rem)" }}
-          >
-            {ABOUT.statement}
-          </p>
-          <p className="max-w-[62ch] text-[1.05rem] text-[#9aa3ba]">{ABOUT.lede}</p>
-
-          <div className="mt-[30px] flex flex-wrap gap-[10px]">
-            {ABOUT.skills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-white/[0.09] bg-white/[0.04] px-4 py-2 text-[0.85rem] text-[#eef1fa] transition-all duration-200 hover:-translate-y-0.5 odd:hover:border-[#00f3ff] odd:hover:text-[#00f3ff] odd:hover:shadow-[0_0_18px_-6px_rgba(0,243,255,0.5)] even:hover:border-[#ff8c00] even:hover:text-[#ff8c00] even:hover:shadow-[0_0_18px_-6px_rgba(255,140,0,0.55)]"
-                style={MONO}
+        <FlipCard
+          ariaLabel="Apoorv Mishra profile card. Activate to flip and read about his focus and skills."
+          front={
+            <>
+              <img
+                className="flip-card__front-image"
+                src={`${import.meta.env.BASE_URL}Profile.jpg`}
+                alt="Apoorv Mishra visiting a historic palace in Jaipur"
+              />
+              <div className="flip-card__front-shade">
+                <span className="mb-2 text-[0.75rem] tracking-[0.08em] text-[#00f3ff]" style={MONO}>
+                  LOG_01 · PROFILE
+                </span>
+                <span className="font-semibold text-[#eef1fa]" style={{ ...DISPLAY, fontSize: "1.8rem" }}>
+                  Apoorv Mishra
+                </span>
+                <span className="mt-2 text-[0.78rem] text-[#eef1fa]/75" style={MONO}>
+                  Click or tap to flip
+                </span>
+              </div>
+            </>
+          }
+          back={
+            <div className="flip-card__back-content">
+              <Eyebrow tag="LOG_01">Profile</Eyebrow>
+              <SectionTitle>Core focus</SectionTitle>
+              <p
+                className="mb-4 font-medium leading-[1.25] tracking-[-0.01em] text-[#eef1fa]"
+                style={{ ...DISPLAY, fontSize: "clamp(1.08rem, 4vw, 1.35rem)" }}
               >
-                {skill}
+                {ABOUT.statement}
+              </p>
+              <p className="text-[0.88rem] leading-relaxed text-[#9aa3ba]">{ABOUT.lede}</p>
+
+              <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                {ABOUT.skills.map((skill, index) => (
+                  <span
+                    key={skill}
+                    className={cn(
+                      "rounded-full border bg-white/[0.04] px-3 py-1.5 text-[0.72rem] text-[#eef1fa]",
+                      index % 2 === 0
+                        ? "border-[#00f3ff]/25"
+                        : "border-[#ff8c00]/30",
+                    )}
+                    style={MONO}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              <span className="mt-4 text-center text-[0.7rem] text-[#5e6478]" style={MONO}>
+                Click or tap to return to photo
               </span>
-            ))}
-          </div>
-        </Panel>
+            </div>
+          }
+        />
       </Reveal>
     </Section>
   )

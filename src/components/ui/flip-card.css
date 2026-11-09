@@ -1,0 +1,88 @@
+.flip-card {
+  --flip-card-radius: 20px;
+
+  position: relative;
+  display: block;
+  width: min(100%, 410px);
+  height: 550px;
+  margin-inline: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--flip-card-radius);
+  background: transparent;
+  color: inherit;
+  perspective: 1200px;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.flip-card:focus-visible {
+  outline: 2px solid #00f3ff;
+  outline-offset: 5px;
+}
+
+.flip-card__rotor {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.flip-card__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--flip-card-radius);
+  background: #08080f;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 24px 70px -32px rgba(0, 0, 0, 0.9);
+}
+
+.flip-card__face--back {
+  transform: rotateY(180deg);
+}
+
+.flip-card__front-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 54%;
+}
+
+.flip-card__front-shade {
+  position: absolute;
+  inset: 35% 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 26px;
+  background: linear-gradient(transparent, rgba(5, 5, 10, 0.9));
+}
+
+.flip-card__back-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 26px;
+  background:
+    radial-gradient(ellipse at 90% 0%, rgba(0, 243, 255, 0.09), transparent 45%),
+    rgba(8, 8, 15, 0.98);
+}
+
+@media (max-width: 480px) {
+  .flip-card {
+    height: 570px;
+  }
+
+  .flip-card__back-content {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card {
+    scroll-behavior: auto;
+  }
+}
