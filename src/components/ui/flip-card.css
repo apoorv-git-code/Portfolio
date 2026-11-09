@@ -14,7 +14,14 @@
   perspective: 1200px;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.flip-card--dragging {
+  cursor: grabbing;
 }
 
 .flip-card:focus-visible {
@@ -32,12 +39,10 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--flip-card-radius);
   background: #08080f;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  box-shadow: 0 24px 70px -32px rgba(0, 0, 0, 0.9);
 }
 
 .flip-card__face--back {
@@ -78,11 +83,5 @@
 
   .flip-card__back-content {
     padding: 22px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .flip-card {
-    scroll-behavior: auto;
   }
 }
