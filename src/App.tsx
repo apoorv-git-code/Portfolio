@@ -6,7 +6,7 @@ import {
   ProjectsSection,
   SiteFooter,
 } from "@/components/portfolio-sections"
-import { CometCursor } from "@/components/ui/comet-cursor"
+import SplashCursor from "@/components/SplashCursor"
 import { LiquidGlassNavbar } from "@/components/ui/liquid-glass-navbar"
 import { ParallaxHero } from "@/components/ui/parallax-scrolling"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
@@ -34,7 +34,21 @@ export default function App() {
       </main>
 
       <SiteFooter />
-      <CometCursor />
+      <SplashCursor
+        colors={["#8fd8ff", "#00f3ff", "#4f8cff"]}
+        rainbow={false}
+        colorSpeed={0.2}
+        intensity={0.7}
+        size={0.7}
+        force={0.8}
+        swirl={2.5}
+        trail={0.75}
+        momentum={0.7}
+        shading={0.7}
+        glow={0.3}
+        quality="medium"
+        zIndex={40}
+      />
       <SmoothScroll />
     </div>
   )
