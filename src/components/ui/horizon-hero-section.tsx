@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger)
 const CONTENT = {
   eyebrow: "Backend & Systems Engineer · AI/ML",
   name: "Apoorv Mishra",
-  location: "Dehradun, India", // original meta description says Chandigarh; confirm which you want
+  location: "Chandigarh, India",
   description:
     "Driven by curiosity about high-load systems. Currently learning to reason about threads, locks, and distributed state, aiming to bridge the gap between application logic and rock-solid infrastructure !",
   primaryCta: { label: "View projects", href: "#projects" },

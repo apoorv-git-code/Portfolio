@@ -25,6 +25,8 @@ import {
 } from "react"
 import { Briefcase, FileText, FolderGit2, Mail, User, type LucideIcon } from "lucide-react"
 
+import { heroTheme } from "@/lib/hero-theme"
+import { RESUME } from "@/lib/site-links"
 import { cn } from "@/lib/utils"
 
 /* -------------------------------------------------------------------------
@@ -33,7 +35,6 @@ import { cn } from "@/lib/utils"
 const BRAND_NAME = "Apoorv Mishra"
 const GITHUB = "https://github.com/apoorv-git-code"
 const LINKEDIN = "https://linkedin.com/in/apoorv-mishra07"
-const RESUME = `${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf`
 
 const NAV_ITEMS: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "about", label: "About", icon: User },
@@ -57,6 +58,7 @@ const THEME_VARS = {
 
 const FONT_DISPLAY = '"Space Grotesk", "Inter", sans-serif'
 const FONT_MONO = '"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace'
+const NAVBAR_RISE = 8
 
 /* -------------------------------------------------------------------------
    Shader
@@ -81,6 +83,7 @@ uniform float uHover;     // 0..1 pointer inside the bar
 uniform vec2  uBlob;      // x = centre (device px), y = width (device px)
 uniform float uBlobOn;    // 0..1 droplet visible
 uniform float uScrolled;  // 0..1
+uniform float uLight;     // 0..1: over the light hero, the glass turns smoky so light text stays legible
 uniform vec3  uVoid;
 uniform vec3  uGold;
 uniform vec3  uCyan;
@@ -133,7 +136,7 @@ void main() {
   vec3 col = uVoid * 1.4;
   col = mix(col, uGold, smoothstep(0.55, 0.85, f) * 0.22);
   col = mix(col, uCyan, smoothstep(0.45, 0.85, q.x * q.y * 2.0) * 0.12);
-  float alpha = mix(0.30, 0.50, uScrolled) + smoothstep(0.55, 0.85, f) * 0.05;
+  float alpha = mix(mix(0.30, 0.50, uScrolled), 0.88, uLight) + smoothstep(0.55, 0.85, f) * 0.05;
 
   // Droplet: pill around the active/hovered link, merged with the pointer
   float bh = uRes.y * 0.5 - 11.0 * u;
@@ -237,6 +240,57 @@ export function LiquidGlassNavbar({ className }: { className?: string }) {
     window.addEventListener("scroll", onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  useEffect(() => {
+    const header = headerRef.current
+    const about = document.getElementById("about")
+    if (!header || !about) return
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    let currentY = 0
+    let targetY = 0
+    let lastTime = 0
+    let raf = 0
+
+    const render = (time: number) => {
+      const dt = Math.min((time - lastTime) / 1000, 0.05)
+      lastTime = time
+      currentY += (targetY - currentY) * (1 - Math.exp(-dt * 4))
+
+      if (Math.abs(targetY - currentY) > 0.1) {
+        header.style.transform = `translate3d(0, ${currentY.toFixed(2)}px, 0)`
+        raf = requestAnimationFrame(render)
+      } else {
+        currentY = targetY
+        header.style.transform = `translate3d(0, ${currentY}px, 0)`
+        raf = 0
+      }
+    }
+
+    const updateTarget = () => {
+      const aboutTop = about.getBoundingClientRect().top + window.scrollY
+      const progress = Math.min(1, Math.max(0, window.scrollY / Math.max(aboutTop, 1)))
+      targetY = -NAVBAR_RISE * progress
+
+      if (reduceMotion) {
+        currentY = targetY
+        header.style.transform = `translate3d(0, ${currentY}px, 0)`
+      } else if (!raf) {
+        lastTime = performance.now()
+        raf = requestAnimationFrame(render)
+      }
+    }
+
+    window.addEventListener("scroll", updateTarget, { passive: true })
+    window.addEventListener("resize", updateTarget)
+    updateTarget()
+
+    return () => {
+      window.removeEventListener("scroll", updateTarget)
+      window.removeEventListener("resize", updateTarget)
+      cancelAnimationFrame(raf)
+    }
   }, [])
 
   useEffect(() => {
@@ -346,6 +400,7 @@ export function LiquidGlassNavbar({ className }: { className?: string }) {
       blob: loc("uBlob"),
       blobOn: loc("uBlobOn"),
       scrolled: loc("uScrolled"),
+      light: loc("uLight"),
     }
 
     // Shader tones come from the CSS variables on the header
@@ -406,6 +461,7 @@ export function LiquidGlassNavbar({ className }: { className?: string }) {
       gl.uniform2f(U.blob, s.bx * dpr, s.bw * dpr)
       gl.uniform1f(U.blobOn, s.bon)
       gl.uniform1f(U.scrolled, s.scrolled)
+      gl.uniform1f(U.light, heroTheme.light)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
 
@@ -502,7 +558,7 @@ export function LiquidGlassNavbar({ className }: { className?: string }) {
             glFailed
               ? scrolled
                 ? "bg-[rgba(5,5,10,0.82)]"
-                : "bg-[rgba(5,5,10,0.6)]"
+                : "bg-[rgba(5,5,10,0.82)]"
               : "bg-[rgba(5,5,10,0.18)]",
           )}
         >
@@ -618,18 +674,17 @@ const GITHUB_PATH =
 const LINKEDIN_PATH =
   "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
 
+/** Gold-tinted pill so it reads as the one "take-away" action. Icon-only on narrower bars. */
 function ResumeLink() {
   return (
     <a
-      href={RESUME}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Open resume (PDF, opens in a new tab)"
-      className="inline-flex h-[38px] items-center gap-2 whitespace-nowrap rounded-[9px] border border-[#ff8c00]/60 bg-[#ff8c00]/10 px-3 text-[0.82rem] font-medium text-[#ffb454] transition-colors duration-200 hover:border-[#00f3ff] hover:text-[#00f3ff] [@media(pointer:coarse)]:h-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+      href={RESUME.href}
+      aria-label={RESUME.label}
+      className="inline-flex h-[38px] items-center justify-center gap-2 rounded-full border border-[rgba(255,140,0,0.45)] bg-[rgba(255,140,0,0.12)] px-4 text-[0.82rem] text-[#ffb454] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#ff8c00] hover:bg-[rgba(255,140,0,0.2)] hover:text-[#ffc47a] max-[1000px]:min-[721px]:w-[38px] max-[1000px]:min-[721px]:px-0 [@media(pointer:coarse)]:h-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
       style={{ fontFamily: FONT_MONO }}
     >
-      <FileText className="h-[15px] w-[15px]" strokeWidth={2} aria-hidden="true" />
-      Resume
+      <FileText className="h-[15px] w-[15px] shrink-0" strokeWidth={2} aria-hidden="true" />
+      <span className="max-[1000px]:min-[721px]:hidden">{RESUME.label}</span>
     </a>
   )
 }

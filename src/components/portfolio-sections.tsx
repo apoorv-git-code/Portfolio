@@ -7,8 +7,11 @@
  * Experience ("LOG_03 Deployment"), Contact ("LOG_04 Transmit") and the footer.
  * All copy is verbatim. Section ids match the navbar's scroll-spy.
  */
+import { FileText } from "lucide-react"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
+import { CrowdCanvas } from "@/components/ui/skiper39"
+import { RESUME } from "@/lib/site-links"
 import { cn } from "@/lib/utils"
 
 /* -------------------------------------------------------------------------
@@ -20,6 +23,8 @@ const LINKEDIN = "https://linkedin.com/in/apoorv-mishra07"
 const EMAIL = "apoorvmishra2007@gmail.com"
 
 const ABOUT = {
+  statement:
+    "Driven by curiosity about high-load systems. Currently learning to reason about threads, locks, and distributed state, aiming to bridge the gap between application logic and rock-solid infrastructure !",
   lede: "Computer Science & Engineering graduate specializing in AI/ML and backend & systems engineering — comfortable moving between model logic and the concurrent, distributed infrastructure that has to run it correctly.",
   skills: [
     "Python",
@@ -136,7 +141,7 @@ function Section({
 }) {
   return (
     <section id={id} className={cn("relative z-[1] py-[60px]", className)}>
-      <div className="mx-auto max-w-[1120px] px-6 max-[480px]:px-[18px]">{children}</div>
+      <div className="relative z-[1] mx-auto max-w-[1120px] px-6 max-[480px]:px-[18px]">{children}</div>
     </section>
   )
 }
@@ -208,6 +213,12 @@ export function AboutSection() {
         <Panel>
           <Eyebrow tag="LOG_01">Profile</Eyebrow>
           <SectionTitle>Core focus</SectionTitle>
+          <p
+            className="mb-5 max-w-[46ch] font-medium leading-[1.25] tracking-[-0.01em] text-[#eef1fa]"
+            style={{ ...DISPLAY, fontSize: "clamp(1.25rem, 2.2vw, 1.6rem)" }}
+          >
+            {ABOUT.statement}
+          </p>
           <p className="max-w-[62ch] text-[1.05rem] text-[#9aa3ba]">{ABOUT.lede}</p>
 
           <div className="mt-[30px] flex flex-wrap gap-[10px]">
@@ -354,32 +365,50 @@ export function ContactSection() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center justify-between gap-5">
-            <a
-              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-[9px] border border-transparent px-[26px] py-[15px] text-[0.95rem] font-medium text-[#170a00] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-14px_rgba(255,140,0,0.55)] max-[480px]:break-all focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
-              style={{
-                ...MONO,
-                backgroundImage: "linear-gradient(135deg, #ff8c00, #ffb454)",
-              }}
-            >
-              {EMAIL}
-            </a>
-            <div className="flex items-center gap-[10px]">
+            <div className="flex flex-wrap items-center gap-3">
               <a
-                href={`${import.meta.env.BASE_URL}Apoorv_Mishra_Resume.pdf`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-[38px] items-center rounded-[9px] border border-[#ff8c00]/60 bg-[#ff8c00]/10 px-4 text-[0.85rem] font-medium text-[#ffb454] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00f3ff] hover:text-[#00f3ff] [@media(pointer:coarse)]:h-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+                className="inline-flex items-center gap-2 rounded-[9px] border border-transparent px-[26px] py-[15px] text-[0.95rem] font-medium text-[#170a00] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-14px_rgba(255,140,0,0.55)] max-[480px]:break-all focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
+                style={{
+                  ...MONO,
+                  backgroundImage: "linear-gradient(135deg, #ff8c00, #ffb454)",
+                }}
+              >
+                {EMAIL}
+              </a>
+              <a
+                href={RESUME.href}
+                className="inline-flex items-center gap-2 rounded-[9px] border border-white/[0.09] bg-white/[0.02] px-[22px] py-[15px] text-[0.95rem] text-[#eef1fa] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00f3ff] hover:text-[#00f3ff] hover:shadow-[0_16px_32px_-18px_rgba(0,243,255,0.5)] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
                 style={MONO}
               >
-                Resume (PDF)
+                <FileText className="h-[18px] w-[18px]" aria-hidden="true" />
+                {RESUME.label}
               </a>
+            </div>
+            <div className="flex gap-[10px]">
               <IconLink href={GITHUB} label="GitHub profile" path={GITHUB_PATH} />
               <IconLink href={LINKEDIN} label="LinkedIn profile" path={LINKEDIN_PATH} />
             </div>
           </div>
+
+          {/* Crowd stage: a paper-white rounded square, so the starfield backdrop stays untouched around it */}
+          <div
+            role="img"
+            aria-label="Decorative animation of people walking past"
+            className="relative mt-9 h-[260px] overflow-hidden rounded-[18px] border border-white/[0.14] bg-[#eef1fa] shadow-[0_24px_60px_-28px_rgba(0,243,255,0.35)] max-[720px]:h-[210px]"
+          >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5"
+              style={{ backgroundImage: "linear-gradient(to top, rgba(255,140,0,0.14), rgba(255,140,0,0))" }}
+            />
+            <CrowdCanvas />
+          </div>
+          <p className="mt-3 text-right text-[0.7rem] text-[#5e6478]" style={MONO}>
+            Crowd animation adapted from Skiper UI · illustrations by Open Peeps
+          </p>
         </Panel>
       </Reveal>
     </Section>

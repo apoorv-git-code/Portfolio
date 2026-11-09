@@ -7,8 +7,9 @@ import {
   SiteFooter,
 } from "@/components/portfolio-sections"
 import { CometCursor } from "@/components/ui/comet-cursor"
-import { HorizonHeroSection } from "@/components/ui/horizon-hero-section"
 import { LiquidGlassNavbar } from "@/components/ui/liquid-glass-navbar"
+import { ParallaxHero } from "@/components/ui/parallax-scrolling"
+import { SmoothScroll } from "@/components/ui/smooth-scroll"
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
       <LiquidGlassNavbar />
 
       <main id="main">
-        <HorizonHeroSection />
+        <ParallaxHero />
         <AboutSection />
         <ProjectsSection />
         <ExperienceSection />
@@ -34,6 +35,7 @@ export default function App() {
 
       <SiteFooter />
       <CometCursor />
+      <SmoothScroll />
     </div>
   )
 }
