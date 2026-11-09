@@ -22,6 +22,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { FileText } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
+import DepthText from "@/components/ui/DepthText"
 import SlideCommit from "@/components/ui/SlideCommit"
 import { scrollToSection } from "@/components/ui/smooth-scroll"
 import { heroTheme } from "@/lib/hero-theme"
@@ -61,6 +62,26 @@ const LAYERS = [
   { layer: "4", yPercent: 10 },
 ] as const
 
+/** DepthText config. The extrusion is light blue; the face stays paper-white. */
+const DEPTH_PROPS = {
+  layers: 34,
+  depth: 2.4,
+  depthColor: "#8fd8ff",
+  gradientDepth: false,
+  hoverPush: 0.5,
+  float: false,
+  tilt: 7.5,
+  pointerTracking: true,
+  smoothing: 0.14,
+  perspective: 900,
+  autoOrbit: true,
+  orbitSpeed: 0.35,
+  fontWeight: 900,
+  shadow: true,
+  outline: false,
+  intro: true,
+} as const
+
 /** Navbar / cursor lightness while the artwork is on screen (0 = dark page, 1 = light hero).
  *  A middle value keeps both legible whatever the artwork's tones. */
 const HERO_LIGHT = 0.55
@@ -94,6 +115,15 @@ export function ParallaxHero({ className }: { className?: string }) {
   const layersRef = useRef<HTMLDivElement>(null)
   const uiRef = useRef<HTMLDivElement>(null)
   const cueRef = useRef<HTMLDivElement>(null)
+
+  // DepthText is a single nowrap line, so on small screens the name is stacked as two lines
+  const [wide, setWide] = useState(() => window.matchMedia("(min-width: 1024px)").matches)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const update = () => setWide(mq.matches)
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
 
   // SlideCommit takes a pixel width: 280 on desktop, narrower on small phones
   const [slideWidth, setSlideWidth] = useState(280)
@@ -215,13 +245,25 @@ export function ParallaxHero({ className }: { className?: string }) {
             >
               {CONTENT.eyebrow}
             </p>
+            {/* The name, in React Bits DepthText: extruded layers that tilt against the pointer.
+                pointer-events-auto lets its hover push work through the (otherwise inert) title layer. */}
             <h1
               data-intro
-              className="font-bold leading-[0.88] tracking-[-0.05em] text-[#eef1fa] [text-shadow:0_6px_50px_rgba(5,5,10,0.45)]"
-              style={{ ...DISPLAY, fontSize: "clamp(3.4rem, 13vw, 11.5rem)" }}
+              className="pointer-events-auto flex flex-col items-center text-[#eef1fa]"
+              style={DISPLAY}
             >
-              {CONTENT.nameFirst}
-              <br className="lg:hidden" /> {CONTENT.nameLast}
+              {wide ? (
+                <DepthText
+                  text={`${CONTENT.nameFirst} ${CONTENT.nameLast}`}
+                  fontSize="clamp(3.4rem, 11vw, 9.5rem)"
+                  {...DEPTH_PROPS}
+                />
+              ) : (
+                <>
+                  <DepthText text={CONTENT.nameFirst} fontSize="clamp(3.2rem, 19vw, 6.5rem)" {...DEPTH_PROPS} />
+                  <DepthText text={CONTENT.nameLast} fontSize="clamp(3.2rem, 19vw, 6.5rem)" {...DEPTH_PROPS} />
+                </>
+              )}
             </h1>
           </div>
 
