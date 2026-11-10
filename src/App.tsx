@@ -35,18 +35,12 @@ export default function App() {
 
       <SiteFooter />
       <SplashCursor
-        colors={["#8fd8ff", "#00f3ff", "#4f8cff"]}
-        rainbow={false}
-        colorSpeed={0.2}
-        intensity={0.7}
-        size={0.7}
-        force={0.8}
-        swirl={2.5}
-        trail={0.75}
-        momentum={0.7}
-        shading={0.7}
-        glow={0.3}
-        quality="medium"
+        rainbow
+        size={1}
+        force={1}
+        swirl={3}
+        trail={1}
+        clickSplash
         zIndex={40}
       />
       <SmoothScroll />
