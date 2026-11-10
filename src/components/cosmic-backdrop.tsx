@@ -2,10 +2,9 @@
  * cosmic-backdrop.tsx
  * Place at: src/components/cosmic-backdrop.tsx
  *
- * The one starfield for the whole page: your original interactive 2D field
- * (drift, twinkle, cursor repulsion), now fixed behind EVERYTHING, including
- * the hero. The hero's WebGL canvas is transparent, so these same stars show
- * through it and carry on unbroken as you scroll into the sections.
+ * The page-wide starfield and pixel snow share one interactive 2D canvas,
+ * fixed behind EVERYTHING, including the hero. The hero's WebGL canvas is
+ * transparent, so both effects carry on unbroken as you scroll into sections.
  *
  * It never pauses on scroll (only when the tab is hidden, or for
  * prefers-reduced-motion). Scrolling adds a gentle depth parallax: bigger
@@ -34,6 +33,24 @@ type Star = {
   rgb: string
 }
 
+type Snowflake = {
+  x: number
+  y: number
+  speed: number
+  drift: number
+  size: number
+  phase: number
+  alpha: number
+  rgb: string
+  sprite: readonly string[]
+}
+
+const SNOW_SPRITES = [
+  [".x.", "x@x", ".x."],
+  ["..x..", "x.o.x", ".o@o.", "x.o.x", "..x.."],
+  ["...x...", ".x.o.x.", "..ooo..", "xoo@oox", "..ooo..", ".x.o.x.", "...x..."],
+] as const
+
 export function CosmicBackdrop({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -49,6 +66,7 @@ export function CosmicBackdrop({ className }: { className?: string }) {
     let height = window.innerHeight
     let dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     let stars: Star[] = []
+    let snowflakes: Snowflake[] = []
     const mouse = { x: width / 2, y: height / 2, active: false }
 
     let scrollTarget = window.scrollY
@@ -62,7 +80,7 @@ export function CosmicBackdrop({ className }: { className?: string }) {
     const shiftOf = (s: Star) => (reduceMotion ? 0 : scrollSmooth * s.depth)
 
     const createStars = () => {
-      // Slightly denser than the original: this is now the only star layer, hero included
+      // The stars and snow are both generated here, including when the viewport changes.
       let count = Math.round((width * height) / 7500)
       count = Math.max(100, Math.min(count, 190))
       if (lowPower) count = Math.round(count * 0.7)
@@ -87,6 +105,19 @@ export function CosmicBackdrop({ className }: { className?: string }) {
           rgb: roll < 0.72 ? PALETTE[0] : roll < 0.9 ? PALETTE[1] : PALETTE[2],
         }
       })
+
+      const snowCount = Math.max(32, Math.min(Math.round((width * height) / 18000), lowPower ? 55 : 90))
+      snowflakes = Array.from({ length: snowCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        speed: 10 + Math.random() * 22,
+        drift: (Math.random() - 0.5) * 10,
+        size: 1.5 + Math.random() * 1.2,
+        phase: Math.random() * TAU,
+        alpha: 0.35 + Math.random() * 0.45,
+        rgb: Math.random() < 0.8 ? "235,245,255" : "160,220,255",
+        sprite: SNOW_SPRITES[Math.floor(Math.random() * SNOW_SPRITES.length)],
+      }))
     }
 
     const resizeCanvas = (rebuild = true) => {
@@ -101,7 +132,7 @@ export function CosmicBackdrop({ className }: { className?: string }) {
       if (rebuild) createStars()
     }
 
-    const update = (dt: number) => {
+    const update = (dt: number, now: number) => {
       const repelRadius = 130
       const repelStrength = 0.9
       const spring = 0.012
@@ -132,6 +163,20 @@ export function CosmicBackdrop({ className }: { className?: string }) {
         s.x += (s.baseX - s.x) * spring * stepScale
         s.y += (s.baseY - s.y) * spring * stepScale
       }
+
+      if (!reduceMotion) {
+        const seconds = dt / 1000
+        for (const flake of snowflakes) {
+          flake.y += flake.speed * seconds
+          flake.x += (flake.drift + Math.sin(now * 0.0007 + flake.phase) * 5) * seconds
+          if (flake.y > height + 24) {
+            flake.y = -24
+            flake.x = Math.random() * width
+          }
+          if (flake.x < -24) flake.x = width + 24
+          if (flake.x > width + 24) flake.x = -24
+        }
+      }
     }
 
     const draw = (now: number) => {
@@ -144,6 +189,31 @@ export function CosmicBackdrop({ className }: { className?: string }) {
         ctx.arc(s.x, wrapY(s.y + shiftOf(s)), s.r, 0, TAU)
         ctx.fill()
       }
+
+      for (const flake of snowflakes) {
+        const pixel = flake.size
+        const sway = Math.sin(now * 0.0007 + flake.phase) * 9
+        const left = flake.x - (flake.sprite.length * pixel) / 2 + sway
+        const top = flake.y - (flake.sprite.length * pixel) / 2
+
+        ctx.save()
+        ctx.globalAlpha = flake.alpha
+        ctx.fillStyle = `rgba(${flake.rgb},0.65)`
+        ctx.shadowColor = `rgba(${flake.rgb},0.7)`
+        ctx.shadowBlur = 7
+        ctx.fillRect(flake.x + sway, flake.y, pixel, pixel)
+        ctx.shadowBlur = 0
+        ctx.fillStyle = `rgb(${flake.rgb})`
+        for (let row = 0; row < flake.sprite.length; row++) {
+          for (let column = 0; column < flake.sprite[row].length; column++) {
+            const mark = flake.sprite[row][column]
+            if (mark === ".") continue
+            ctx.globalAlpha = flake.alpha * (mark === "@" ? 1 : 0.72)
+            ctx.fillRect(left + column * pixel, top + row * pixel, pixel, pixel)
+          }
+        }
+        ctx.restore()
+      }
     }
 
     /* Single rAF handle. Runs for the whole life of the page (not just the hero). */
@@ -154,7 +224,7 @@ export function CosmicBackdrop({ className }: { className?: string }) {
       raf = 0
       const dt = Math.min(now - last, 48)
       last = now
-      update(dt)
+      update(dt, now)
       draw(now)
       raf = requestAnimationFrame(frame)
     }
