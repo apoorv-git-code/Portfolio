@@ -7,11 +7,13 @@
  * Experience ("LOG_03 Deployment"), Contact ("LOG_04 Transmit") and the footer.
  * All copy is verbatim. Section ids match the navbar's scroll-spy.
  */
-import { FileText } from "lucide-react"
+import { FileText, Instagram } from "lucide-react"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
 import { CrowdCanvas } from "@/components/ui/skiper39"
 import { FlipCard } from "@/components/ui/flip-card"
+import ReflectiveCard from "@/components/ReflectiveCard"
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack"
 import { RESUME } from "@/lib/site-links"
 import { cn } from "@/lib/utils"
 
@@ -21,6 +23,7 @@ import { cn } from "@/lib/utils"
 const GITHUB = "https://github.com/apoorv-git-code"
 const GITHUB_TASKS = "https://github.com/apoorv-git-code/codealpha_tasks"
 const LINKEDIN = "https://linkedin.com/in/apoorv-mishra07"
+const INSTAGRAM = "https://www.instagram.com/apoorvmishra_07/"
 const EMAIL = "apoorvmishra2007@gmail.com"
 
 const ABOUT = {
@@ -188,7 +191,15 @@ function SectionTitle({ children }: { children: ReactNode }) {
   )
 }
 
-function IconLink({ href, label, path }: { href: string; label: string; path: string }) {
+function IconLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string
+  label: string
+  icon: ReactNode
+}) {
   return (
     <a
       href={href}
@@ -197,9 +208,7 @@ function IconLink({ href, label, path }: { href: string; label: string; path: st
       aria-label={label}
       className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-[9px] border border-white/[0.09] bg-white/[0.02] text-[#9aa3ba] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00f3ff] hover:text-[#00f3ff] hover:shadow-[0_10px_22px_-14px_rgba(0,243,255,0.5)] [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#00f3ff]"
     >
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-        <path d={path} />
-      </svg>
+      {icon}
     </a>
   )
 }
@@ -214,24 +223,43 @@ export function AboutSection() {
         <FlipCard
           ariaLabel="Apoorv Mishra profile card. Activate to flip and read about his focus and skills."
           front={
-            <>
+            <ReflectiveCard
+              width="100%"
+              height="100%"
+              radius={20}
+              theme="dark"
+              tint="#9ee8ff"
+              metalness={0.78}
+              roughness={0.36}
+              blurStrength={5}
+              grayscale={0.35}
+              shine={0.8}
+              glare={0.3}
+              warp={0.22}
+              className="flip-card__reflective"
+            >
+              <div className="flip-card__reflective-content">
+                <span className="flip-card__reflective-eyebrow" style={MONO}>
+                  LOG_01 · PROFILE
+                </span>
               <img
-                className="flip-card__front-image"
+                className="flip-card__reflective-image"
                 src={`${import.meta.env.BASE_URL}Profile.jpg`}
                 alt="Apoorv Mishra visiting a historic palace in Jaipur"
               />
-              <div className="flip-card__front-shade">
-                <span className="mb-2 text-[0.75rem] tracking-[0.08em] text-[#00f3ff]" style={MONO}>
-                  LOG_01 · PROFILE
-                </span>
-                <span className="font-semibold text-[#eef1fa]" style={{ ...DISPLAY, fontSize: "1.8rem" }}>
+                <div className="flip-card__reflective-identity">
+                  <span className="font-semibold text-[#eef1fa]" style={{ ...DISPLAY, fontSize: "1.8rem" }}>
                   Apoorv Mishra
-                </span>
-                <span className="mt-2 text-[0.78rem] text-[#eef1fa]/75" style={MONO}>
-                  Click or tap to flip
-                </span>
+                  </span>
+                  <span className="mt-1 text-[0.78rem] text-[#eef1fa]/75" style={MONO}>
+                    Backend &amp; Systems Engineer · AI/ML
+                  </span>
+                  <span className="mt-3 text-[0.7rem] text-[#00f3ff]" style={MONO}>
+                    Click or tap to flip
+                  </span>
+                </div>
               </div>
-            </>
+            </ReflectiveCard>
           }
           back={
             <div className="flip-card__back-content">
@@ -282,17 +310,25 @@ export function ProjectsSection() {
         <SectionTitle>Selected work</SectionTitle>
       </Reveal>
 
-      <div className="mt-2 grid grid-cols-2 gap-[22px] max-[720px]:grid-cols-1">
+      <ScrollStack
+        className="projects-stack mt-2"
+        itemDistance={64}
+        itemStackDistance={24}
+        stackPosition="16%"
+        itemScale={0.035}
+        baseScale={0.88}
+        dimAmount={0.16}
+        holdDistance={180}
+        smoothScroll={false}
+        useWindowScroll
+      >
         {PROJECTS.map((p) => (
-          <Reveal key={p.index} className="h-full">
-            <article className="group relative h-full overflow-hidden rounded-[18px] border border-white/[0.09] bg-white/[0.045] px-7 pb-7 pt-[30px] backdrop-blur-[18px] transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1.5 hover:border-white/[0.18] hover:bg-white/[0.07] max-[720px]:hover:translate-y-0">
+          <ScrollStackItem key={p.index} itemClassName="project-stack-card">
+            <article className="group relative h-full overflow-hidden rounded-[18px] border border-white/[0.09] bg-[#08080f]/95 px-7 pb-7 pt-[30px] text-[#eef1fa] backdrop-blur-[18px] transition-[border-color,background-color] duration-300 hover:border-white/[0.18] hover:bg-[#0b1019]/95">
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -inset-[40%] opacity-0 transition-opacity duration-[400ms] group-hover:opacity-100 max-[720px]:group-hover:opacity-0"
-                style={{
-                  background:
-                    "radial-gradient(circle at 30% 20%, rgba(0,243,255,0.16), transparent 55%)",
-                }}
+                className="pointer-events-none absolute -inset-[40%] opacity-0 transition-opacity duration-[400ms] group-hover:opacity-100"
+                style={{ background: "radial-gradient(circle at 30% 20%, rgba(0,243,255,0.16), transparent 55%)" }}
               />
               <span className="relative mb-[14px] block text-[0.8rem] text-[#ff8c00]" style={MONO}>
                 {p.index}
@@ -339,9 +375,9 @@ export function ProjectsSection() {
                 </svg>
               </a>
             </article>
-          </Reveal>
+          </ScrollStackItem>
         ))}
-      </div>
+      </ScrollStack>
     </Section>
   )
 }
@@ -422,8 +458,29 @@ export function ContactSection() {
               </a>
             </div>
             <div className="flex gap-[10px]">
-              <IconLink href={GITHUB} label="GitHub profile" path={GITHUB_PATH} />
-              <IconLink href={LINKEDIN} label="LinkedIn profile" path={LINKEDIN_PATH} />
+              <IconLink
+                href={GITHUB}
+                label="GitHub profile"
+                icon={
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d={GITHUB_PATH} />
+                  </svg>
+                }
+              />
+              <IconLink
+                href={LINKEDIN}
+                label="LinkedIn profile"
+                icon={
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d={LINKEDIN_PATH} />
+                  </svg>
+                }
+              />
+              <IconLink
+                href={INSTAGRAM}
+                label="Instagram profile"
+                icon={<Instagram size={18} strokeWidth={2} />}
+              />
             </div>
           </div>
 
