@@ -1,166 +1,830 @@
-%PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%PDF-1.3
+%âãÏÓ
 1 0 obj
 <<
-/F1 2 0 R /F2 3 0 R /F3 7 0 R /F4 10 0 R
+/PageMode /UseNone
+/Pages 2 0 R
+/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+/Count 1
+/Kids [ 3 0 R ]
+/Type /Pages
 >>
 endobj
 3 0 obj
 <<
-/BaseFont /Times-Roman /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+/Annots [ 4 0 R 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R ]
+/Contents 14 0 R
+/MediaBox [ 0 0 612 792 ]
+/Parent 2 0 R
+/Resources <<
+/Font 15 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 4 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://www.linkedin.com/in/apoorv-mishra07/)
->> /Border [ 0 0 0 ] /Rect [ 105.695 707.5 239.855 719.5 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057www\056linkedin\056com\057in\057apoorv\055mishra07\057)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 105.695 707.5 239.855 719.5 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 5 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code)
->> /Border [ 0 0 0 ] /Rect [ 246.855 707.5 358.785 719.5 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 246.855 707.5 358.785 719.5 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 6 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://portfolio-apoorv-mishra.vercel.app/)
->> /Border [ 0 0 0 ] /Rect [ 365.785 707.5 506.305 719.5 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057portfolio\055apoorv\055mishra\056vercel\056app\057)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 365.785 707.5 506.305 719.5 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 7 0 obj
 <<
-/BaseFont /Times-Bold /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+/A <<
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code\057codealpha\137tasks)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 197.9966 601.94 269.5856 613.7 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 8 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code/codealpha_tasks)
->> /Border [ 0 0 0 ] /Rect [ 197.9966 601.94 269.5856 613.7 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057upesacm\056org)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 423.867 564.74 473.6706 576.5 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 9 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://upesacm.org)
->> /Border [ 0 0 0 ] /Rect [ 423.867 564.74 473.6706 576.5 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code\057Quanta\055CareTrace)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 531.9 519.0125 562.8 531.0125 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 10 0 obj
 <<
-/BaseFont /Times-Italic /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+/A <<
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code\057Hotel\055and\055Amenity\055management\055system)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 531.9 447.6125 562.8 459.6125 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 11 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code/Quanta-CareTrace)
->> /Border [ 0 0 0 ] /Rect [ 531.9 519.0125 562.8 531.0125 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code\057Air\055Hockey\055Project\055in\055C\055)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 531.9 387.9125 562.8 399.9125 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 12 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code/Hotel-and-Amenity-management-system)
->> /Border [ 0 0 0 ] /Rect [ 531.9 447.6125 562.8 459.6125 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057apoorv\055git\055code\057Reborn)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 531.9 328.2125 562.8 340.2125 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 13 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code/Air-Hockey-Project-in-C-)
->> /Border [ 0 0 0 ] /Rect [ 531.9 387.9125 562.8 399.9125 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057quiet\055keep\056vercel\056app)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 518.4585 257.4125 562.8 269.4125 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 14 0 obj
 <<
-/A <<
-/S /URI /Type /Action /URI (https://github.com/apoorv-git-code/Reborn)
->> /Border [ 0 0 0 ] /Rect [ 531.9 328.2125 562.8 340.2125 ] /Subtype /Link /Type /Annot
+/Length 13769
 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 55.2 732 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F2 25 Tf 28 TL 174.075 0 Td (Apoorv Mishra) Tj T* -174.075 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 719.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F2 10 Tf 12.5 TL 151.46 0 Td (Dehradun, India | apoorvmishra2007@gmail.com) Tj T* -151.46 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 707 cm
+q
+0 0 .933333 RG
+n 50.495 1.25 m 184.655 1.25 l S
+n 191.655 1.25 m 303.585 1.25 l S
+n 310.585 1.25 m 451.105 1.25 l S
+BT 1 0 0 1 0 2.5 Tm 50.495 0 Td 12.5 TL /F2 10 Tf 0 0 .933333 rg (linkedin.com/in/apoorv-mishra07) Tj 0 0 0 rg ( | ) Tj 0 0 .933333 rg (github.com/apoorv-git-code) Tj 0 0 0 rg ( | ) Tj 0 0 .933333 rg (portfolio-apoorv-mishra.vercel.app) Tj T* -50.495 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 688 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F3 13.5 Tf 15 TL (Experience) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 686.3 cm
+q
+.7 w
+1 J
+0 0 0 RG
+n 0 0 m 501.6 0 l S
+Q
+Q
+q
+1 0 0 1 49.2 671.3 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (CodeAlpha) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 17.0062 0 Td (Jun 2026 \226 Jul 2026) Tj T* -17.0062 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 49.2 659.3 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (Artificial Intelligence Intern) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 70.2572 0 Td (Remote) Tj T* -70.2572 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 637.1 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Built a ) Tj /F3 9.8 Tf (real-time object detection and tracking dashboard) Tj /F2 9.8 Tf ( in ) Tj /F3 9.8 Tf (Python, OpenCV, YOLOv8, and ByteTrack) Tj /F2 9.8 Tf (, showing) Tj T* -1.56 0 Td (live object counts and cumulative unique-object totals over the video feed.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 614.3 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Added ) Tj /F3 9.8 Tf (automatic .mp4 recording) Tj /F2 9.8 Tf ( of the tracked feed and developed a ) Tj /F3 9.8 Tf (language translation tool) Tj /F2 9.8 Tf ( as part of the) Tj T* -1.56 0 Td (internship project set.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 602.6 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+0 0 .933333 RG
+n 142.7966 .075 m 214.3856 .075 l S
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Published all tasks in a public ) Tj 0 0 .933333 rg (GitHub repository) Tj 0 0 0 rg ( and earned an ) Tj /F3 9.8 Tf (internship completion certificate) Tj /F2 9.8 Tf (.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 600.5 cm
+Q
+q
+1 0 0 1 49.2 588.5 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (UPES ACM Student Chapter) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 19.0353 0 Td (Aug 2026 \226 Present) Tj T* -19.0353 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 49.2 576.5 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (Technical Core Member) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 30.7361 0 Td (Dehradun, India) Tj T* -30.7361 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 554.3 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+0 0 .933333 RG
+n 368.667 11.175 m 418.4706 11.175 l S
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Contribute to ) Tj /F3 9.8 Tf (software projects) Tj /F2 9.8 Tf (, including the ) Tj /F3 9.8 Tf (React and Vite) Tj /F2 9.8 Tf ( website for the chapter \() Tj 0 0 .933333 rg (upesacm.org) Tj 0 0 0 rg (\); help organize) Tj T* -1.56 0 Td /F3 9.8 Tf (technical events) Tj /F2 9.8 Tf ( and ) Tj /F3 9.8 Tf (mentor peers) Tj /F2 9.8 Tf ( in ) Tj /F3 9.8 Tf (C and Data Structures) Tj /F2 9.8 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 535.3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F3 13.5 Tf 15 TL (Projects) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 533.6 cm
+q
+.7 w
+1 J
+0 0 0 RG
+n 0 0 m 501.6 0 l S
+Q
+Q
+q
+1 0 0 1 49.2 518.6 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+BT 1 0 0 1 0 1.7 Tm 12 TL /F3 10.3 Tf 0 0 0 rg (Quanta CareTrace) Tj /F2 10.3 Tf ( | ) Tj /F4 10.3 Tf (Agentic clinical documentation, Tech Zephyr 4.0 \(team of 4, backend\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 .933333 rg
+0 0 .933333 RG
+n 73.1 .4125 m 104 .4125 l S
+BT 1 0 0 1 0 1.7 Tm /F2 10.3 Tf 12 TL 73.1 0 Td (GitHub) Tj T* -73.1 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 496.4 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Built backend services for a workflow that drafts follow-up notes and ) Tj /F3 9.8 Tf (blocks unsafe prescription candidates) Tj /F2 9.8 Tf ( with a) Tj T* -1.56 0 Td (deterministic guideline rule \(e.g., Lisinopril with potassium above 5.0 mEq/L\), keeping the LLM advisory only.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 484.7 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Imported ) Tj /F3 9.8 Tf (20,000 synthetic patient records) Tj /F2 9.8 Tf ( into SQLite with paginated search and ) Tj /F3 9.8 Tf (50 patient-linked case workspaces) Tj /F2 9.8 Tf (.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 473 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Added ) Tj /F3 9.8 Tf (server-side role checks) Tj /F2 9.8 Tf ( \(only clinicians approve\), a ) Tj /F3 9.8 Tf (per-step audit log) Tj /F2 9.8 Tf (, and a ) Tj /F3 9.8 Tf (14-check acceptance suite) Tj /F2 9.8 Tf (.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 461.3 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F3 9.8 Tf 0 0 0 rg (Stack:) Tj /F2 9.8 Tf ( Python, SQLite, Gemini, Ollama, Server-Sent Events) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 459.2 cm
+Q
+q
+1 0 0 1 49.2 447.2 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+BT 1 0 0 1 0 1.7 Tm 12 TL /F3 10.3 Tf 0 0 0 rg (Hotel & Amenity Management System) Tj /F2 10.3 Tf ( | ) Tj /F4 10.3 Tf (Streamlit app, team of 2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 .933333 rg
+0 0 .933333 RG
+n 73.1 .4125 m 104 .4125 l S
+BT 1 0 0 1 0 1.7 Tm /F2 10.3 Tf 12 TL 73.1 0 Td (GitHub) Tj T* -73.1 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 425 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Built a ) Tj /F3 9.8 Tf (Streamlit) Tj /F2 9.8 Tf ( app on ) Tj /F3 9.8 Tf (MongoDB) Tj /F2 9.8 Tf ( with object-oriented CRUD modules for hotels, rooms, customers, bookings, and) Tj T* -1.56 0 Td (amenities.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 413.3 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Used ) Tj /F3 9.8 Tf (Python threading and locks) Tj /F2 9.8 Tf ( to prevent ) Tj /F3 9.8 Tf (double-booking) Tj /F2 9.8 Tf ( when multiple users reserve the same room.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 401.6 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F3 9.8 Tf 0 0 0 rg (Stack:) Tj /F2 9.8 Tf ( Python, Streamlit, MongoDB, PyMongo) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 399.5 cm
+Q
+q
+1 0 0 1 49.2 387.5 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+BT 1 0 0 1 0 1.7 Tm 12 TL /F3 10.3 Tf 0 0 0 rg (Multithreaded Terminal Air Hockey) Tj /F2 10.3 Tf ( | ) Tj /F4 10.3 Tf (Real-time two-player game in C) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 .933333 rg
+0 0 .933333 RG
+n 73.1 .4125 m 104 .4125 l S
+BT 1 0 0 1 0 1.7 Tm /F2 10.3 Tf 12 TL 73.1 0 Td (GitHub) Tj T* -73.1 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 365.3 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Designed a ) Tj /F3 9.8 Tf (three-thread architecture) Tj /F2 9.8 Tf ( \(input, game logic, rendering\) sharing state behind a ) Tj /F3 9.8 Tf (mutex) Tj /F2 9.8 Tf (, with physics ticking) Tj T* -1.56 0 Td (about ) Tj /F3 9.8 Tf (15 times per second) Tj /F2 9.8 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 353.6 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Slept the input thread for ) Tj /F3 9.8 Tf (10 ms) Tj /F2 9.8 Tf ( to stop busy-spinning and keep idle CPU usage low.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 341.9 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F3 9.8 Tf 0 0 0 rg (Stack:) Tj /F2 9.8 Tf ( C, POSIX Threads, termios, ANSI escape codes) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 339.8 cm
+Q
+q
+1 0 0 1 49.2 327.8 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+BT 1 0 0 1 0 1.7 Tm 12 TL /F3 10.3 Tf 0 0 0 rg (Reborn) Tj /F2 10.3 Tf ( | ) Tj /F4 10.3 Tf (INNOV8 4.0, IIT Delhi \(Top 40 finalist\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 .933333 rg
+0 0 .933333 RG
+n 73.1 .4125 m 104 .4125 l S
+BT 1 0 0 1 0 1.7 Tm /F2 10.3 Tf 12 TL 73.1 0 Td (GitHub) Tj T* -73.1 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 305.6 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Compared three ensemble ranking approaches using Hits@150 \(best ) Tj /F3 9.8 Tf (100/150) Tj /F2 9.8 Tf (\) and produced ) Tj /F3 9.8 Tf (500 ranked candidates in) Tj T* -1.56 0 Td (about 110 seconds) Tj /F2 9.8 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 282.8 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td -0.098308 Tw 11.1 TL /F2 9.8 Tf 0 0 0 rg (Wrote ) Tj /F3 9.8 Tf (decision-logic modules) Tj /F2 9.8 Tf ( \(normalization, deduplication, fraud checks, scoring, LLM notes\) for an autonomous agent) Tj T* 0 Tw -1.56 0 Td (in the finals' live simulation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 271.1 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F3 9.8 Tf 0 0 0 rg (Stack:) Tj /F2 9.8 Tf ( Python) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 269 cm
+Q
+q
+1 0 0 1 49.2 257 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+BT 1 0 0 1 0 1.7 Tm 12 TL /F3 10.3 Tf 0 0 0 rg (The Quiet Keep) Tj /F2 10.3 Tf ( | ) Tj /F4 10.3 Tf (Side-scrolling platformer, plain JavaScript) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 .933333 rg
+0 0 .933333 RG
+n 59.6585 .4125 m 104 .4125 l S
+BT 1 0 0 1 0 1.7 Tm /F2 10.3 Tf 12 TL 59.6585 0 Td (Live demo) Tj T* -59.6585 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 234.8 cm
+q
+BT 1 0 0 1 12 12.4 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 12.4 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Built a ) Tj /F3 9.8 Tf (ten-world platformer from scratch) Tj /F2 9.8 Tf ( on HTML5 Canvas with sword combos, fireballs, a village shop, quests and) Tj T* -1.56 0 Td (a guardian boss in each world.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 223.1 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F2 9.8 Tf 0 0 0 rg (Deployed on ) Tj /F3 9.8 Tf (Vercel) Tj /F2 9.8 Tf ( with desktop and touch controls, so anyone can play it in the browser.) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 211.4 cm
+q
+BT 1 0 0 1 12 1.3 Tm /F1 10 Tf 12 TL 0 0 0 rg (\226) Tj ET
+BT 1 0 0 1 22 1.3 Tm 1.56 0 Td 11.1 TL /F3 9.8 Tf 0 0 0 rg (Stack:) Tj /F2 9.8 Tf ( JavaScript, HTML5 Canvas) Tj T* -1.56 0 Td ET
+Q
+Q
+q
+1 0 0 1 55.2 209.3 cm
+Q
+q
+1 0 0 1 55.2 190.3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F3 13.5 Tf 15 TL (Education) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 188.6 cm
+q
+.7 w
+1 J
+0 0 0 RG
+n 0 0 m 501.6 0 l S
+Q
+Q
+q
+1 0 0 1 49.2 173.6 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (University of Petroleum and Energy Studies) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 17.6036 0 Td (Expected May 2029) Tj T* -17.6036 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 49.2 161.6 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL (B.Tech in Computer Science and Engineering \(AI/ML\) | CGPA: 8.1/10.0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 409.6 0 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.7 Tm /F3 10.3 Tf 12 TL 30.7361 0 Td (Dehradun, India) Tj T* -30.7361 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 55.2 149.8 cm
+q
+BT 1 0 0 1 12 2 Tm 11.8 TL /F3 9.8 Tf 0 0 0 rg (Coursework:) Tj /F2 9.8 Tf ( Data Structures & Algorithms, OOP, DBMS, Operating Systems, Systems Programming) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 130.8 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F3 13.5 Tf 15 TL (Technical Skills) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 129.1 cm
+q
+.7 w
+1 J
+0 0 0 RG
+n 0 0 m 501.6 0 l S
+Q
+Q
+q
+1 0 0 1 55.2 114.3 cm
+q
+BT 1 0 0 1 12 2 Tm 11.8 TL /F3 9.8 Tf 0 0 0 rg (Languages:) Tj /F2 9.8 Tf ( Python, C, JavaScript) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 102.5 cm
+q
+BT 1 0 0 1 12 2 Tm 11.8 TL /F3 9.8 Tf 0 0 0 rg (Frameworks & Libraries:) Tj /F2 9.8 Tf ( Streamlit, React, OpenCV, YOLOv8 \(Ultralytics\), NumPy) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 90.7 cm
+q
+BT 1 0 0 1 12 2 Tm 11.8 TL /F3 9.8 Tf 0 0 0 rg (Databases:) Tj /F2 9.8 Tf ( MongoDB \(PyMongo, Atlas\), SQLite) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 78.9 cm
+q
+BT 1 0 0 1 12 2 Tm 11.8 TL /F3 9.8 Tf 0 0 0 rg (Tools & Concepts:) Tj /F2 9.8 Tf ( Git, GitHub, Linux Shell, Multithreading & Synchronization, OOP, Data Structures & Algorithms) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 59.9 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.5 Tm /F3 13.5 Tf 15 TL (Achievements) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 58.2 cm
+q
+.7 w
+1 J
+0 0 0 RG
+n 0 0 m 501.6 0 l S
+Q
+Q
+q
+1 0 0 1 55.2 43.4 cm
+q
+0 0 0 rg
+BT 1 0 0 1 12 2 Tm /F3 9.8 Tf 11.8 TL (Top 40 Finalist | IIT Delhi INNOV8 4.0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 55.2 31.6 cm
+q
+0 0 0 rg
+BT 1 0 0 1 12 2 Tm /F2 9.8 Tf 11.8 TL (Solved 250 problems on LeetCode | Dynamic Programming, Trees, Graphs) Tj T* ET
+Q
+Q
+ 
+
+endstream
 endobj
 15 0 obj
 <<
-/A <<
-/S /URI /Type /Action /URI (https://quiet-keep.vercel.app)
->> /Border [ 0 0 0 ] /Rect [ 518.4585 257.4125 562.8 269.4125 ] /Subtype /Link /Type /Annot
+/F1 16 0 R
+/F2 17 0 R
+/F3 18 0 R
+/F4 19 0 R
 >>
 endobj
 16 0 obj
 <<
-/Annots [ 4 0 R 5 0 R 6 0 R 8 0 R 9 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R ] /Contents 20 0 R /MediaBox [ 0 0 612 792 ] /Parent 19 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 
-  /Trans <<
-
->> /Type /Page
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 17 0 obj
 <<
-/PageMode /UseNone /Pages 19 0 R /Type /Catalog
+/BaseFont /Times-Roman
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 18 0 obj
 <<
-/Author (Apoorv Mishra) /CreationDate (D:20261111023406+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261111023406+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (Apoorv Mishra - Resume) /Trapped /False
+/BaseFont /Times-Bold
+/Encoding /WinAnsiEncoding
+/Name /F3
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 19 0 obj
 <<
-/Count 1 /Kids [ 16 0 R ] /Type /Pages
+/BaseFont /Times-Italic
+/Encoding /WinAnsiEncoding
+/Name /F4
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 20 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 4059
+/Author (Apoorv Mishra)
+/CreationDate (D\07220261111023406\05300\04700\047)
+/Creator (\050unspecified\051)
+/Keywords ()
+/ModDate (D\07220261111023406\05300\04700\047)
+/Producer (ReportLab PDF Library \055 \050opensource\051)
+/Subject (\050unspecified\051)
+/Title (Apoorv Mishra \055 Resume)
+/Trapped /False
 >>
-stream
-Gb!SogN)%.&q/)-o[BnJ-.0A_dd5.:ZBI7`a%iF@0BF"+KI)RKJ,r2f1c6Ai%?Qfb$bF7o45#IkCl5#,5[R9YDBL"1pu@e"8Ik6)%#;#Ln9c'[K,6QlN6gEmr8Pm-YB_p]*$=1Ua4KjaC[T@0$iHa.O;5Pj7l`d.Od>&%[1k8(*B0#JnMl5TUI#63$g14.,^B^V?X`kVkh^XkL])`f%u9i_::+kW+!3GZH`gM+\UtQO4=BJQiu_2>2m%<0:3jtfquOa[-oVh1>rVaoRM1uIM9)%4>EQ-uG&Fs_Rkk?B5PY$9"c(0A_Ee<rK0%,jl\A4gC-H5`_ABk9\%Itni!)s+^\:4U\]\2;KK'ps?$X>bL1XODj]2sdeZ@%o:>m=*r._)-lW##^ITYp3>:[[PN?VQ._Z;6(EG&:oPa/Ri@Uq:sn4knS.G[of+_5jM1+'U,-K*ZWRF'/$7BnPglMBiol1Or.gr4'b,lfT;N5'[.9*ZiZ'iZs2'AAJTBn2cge3c2Mgu6.pbui!TqEip;Xc$97:A8=Q""bbk=rFBi1pP[mnQI439[%BW=M.b'Mo$8s%YeYRUTBiFNU$r-Jb*"6?L51>cYqh0?,aX(r>o5>q!24NR85=6^[gr))BZ%1M?_D)U*EgHCR-Z;+[2,IbLfcUK)$PbPNXTA0ok9pD]`[Gb(\kumlfI)VqN/Df^\5EX:1%t@/,NMd.]E+N(7_01F/!bnm-b@?&Y'Rs#^FV(/+p-^I=>id&W%8-'11!ohq8<%O<?'[q%K&1&7(]-)@od5>6#=4G?[rjG*1RUdWHSK#k<]YScC#(ge)+3A5"HZ2C>hI/(5Ss1(,$\F"L!bZFD!Nj[Y";&rIhEJMF`h/T\^KYlK_,SO&F;Aj1?PuehPotuZn0,<k4n!'OlR0%pV"m(][/PE'nCJ%N<#CKpJ%DK0^Nma/hlY7_G.<8[0!`!'T+DE$1g?S!q;8fkF[':]Fd`XQ69'IqP7%liIMpD[$<b,sZ`g,+)\j7c5[P"1#.#9FDEGY>X-8O,1'i7G09VQ429D>TMnS6Od'C;q![9W0S^(V$'4YUCn#@Et1+#TZ4UhYB6g7H<qX<nhI6`nfgK9E/PV1X@bTcYQRPkp-"DlX25YRl\W6I$[M@Vm\h,WCH^\(-@^0s;B229&7%NK^/hW`>NK(+X7-Jm20b29_-XI2gjd)U/5'GqsuHiAlk>.]'e2iJ\J\lDMae"31kFTQ/h`C:]QS0-sUXr_e6Hmqtpa;;?L^KoKe%j(S?!L-ectVtoD1Zk^)G*:u@tEqb9Zm_-"k8Oh+"!kN00+8#D)Y8<Z.2PD4=I4(!0?@0^*r*K]Z6buF;-<5o,.G!NYM<j_mTJ[W!<0jW+G`l&F`slXaM>0UJJu?V@ccd$RE(;8]+V_(JS`u:u9]53OMEFm)'hNF9aQWfN\U+&^R*hu8Hpfskh1k6r'.XmuL0947Q=_JW[[nJr`MjW;9$::PFCJnd*KuX/(<@sS.u_Qo!,"g0.#;\eFe?h:En,>;"pirDp#rt36MKh0(,'L/>JIok_+T-)W!GnY%adEs+^;NYqs'mu4FA/%D]U(pef5sOlI8p#(!+8]SfnL_cnGV&V8[7'+`pu]_ig0f;h_FX'2;#BHM)<.>Zs2WH@3a6L8GW1FV4(sc1P95]g+@Q+j8I=C)F!MnrhucSns1bE6ptfp_!:LUKce^ns1S$)+5Td-fiNp-LMEb#SMMVY"S^A_ctrs!022]Z:F1*'+'hiMCW_L&WE_XZD(qLp]Zs-c`i)l*@kbf/DtN@Wsb>jgF2GSdgA)q3Y;NuAJG)r3`DpYB1t$4$H]SW;LqMJ.9>Oq-:m;C6D)Cr^)W_M^$NNDV+$<4B4pBmdT`T1:4_?VHj:jKrQpD9R;IB\FZdokCW/d9ICJ7J/uUeNQ"aeE(gWR5eYM(0S="dq+3nsXW:`WWN"[dK+d'^1[+[K[>LD9<gOuG(e2WF;&/;S2lqS`B`qGr%>jC-A7d9]@ZE)@L5`/6J9T";5Y0s?Qm6qK20s$4^'UZpZWV/GI!EEg4,qXXT3\MWil]kUY"'`M*Kj?JD+A"nXP3D=gWb`"A/+h`j2R'2/Ys>O2JPh8ko^fY+gBKt2Y8qjT2(E_+,0NMPn:#5KOnSR6-+VZDd?.2"[d#.IA&m"FJ"#Hp(1B(QTATu2,:hqr:,nQj3_dJ)N_Yc+R;J)U@.qgkS^@*ld&'_@YEM3Lk_I6NQC(q@hSO(:UraCPH7ntl*5C3h'^OUT=6MQN#3Omb:WJQT'[pE[X_6@'<!Qi'jS1+%<%2kKa[hqTd%*.-!5t1-M/b@AeZQ!/jS&JfngA!9jVeacOe^2r0r0BK&<M$G@\uLNU2aUI:+E887_=Yo/;BNh%XF>)X?c!Q0Gu:c"[3!J@1`h]C%VE?3,;(`%umot-[26Rcji5qQ[>nk(^r=0Kn=dOpb'V=!pdBT?0rs%7Us=`Ym<@!'&K@ld.s9KqJjpZ0(23;aN,?:k,C7&QCu.1%(leXkg/IoHkX::;oPWhhK7>7UtsarTP5n))\?-0gZTL77>3@1XG#qt-&@dfnPG()Ie=?'N9Dcg=Gg"Dcl'02Xh6.JD\d(ge)o=gYs\VUm[FZ4&Qjff(?G!0d/Kg@Gp%.q7.Bm:Or`I#7)<pgM8`Mj%,%NZ6DNlOO%jXu?SE7)G'(a2<PYD.o<,t$N43c/X#496ipQ=,'4S0%CqqfJJ#!N?cPcYB8394)]bm=>)ob?U8lIU#-@lt'mmj:+[5089e.=(bT?@FiQ>_I^5B\UTkYD;k+6c0M]<&Vap%84[MpHh-q<>]ZknoFp2IdT9A+YT(Kkl\!=TADT3^A68D$\kYK@lm=$R-0l%A!X_MWRH^5S@rmE)#:`Yej?VG5B3_<iTN>8@Rb/<8#XBFV"$<R\qCUl;0riBpI>,>i`J.=OTlU]0qH%Ruu2fjj\PNeQlIqn$d<+Pe-=pN]ZG00$`^!]-7/"Oht=).8?1=Jp0rCC,s$\a)N8DN0)qdDCUg>WlXguT)!U_8X21CM[l[Rk_.PBXY8/E6gL,B*s]J^bXF-6"_>3MIHB`?gu#(gE,PeVr=-t?]41HA]&:3m++"r%2gfO/Y,UmH;![i[<hT,\ppjdUN)o^M0j;FY0i.5l+(-PbW^M^qdp\4u[R:A9R^&WkdC/Mb/K'tjm@OKj&\b;A]mU:N[PDS&4OY@<dX52Tgj?aUI/P18%KL`Y"/2O'HRE?iY1NnF=QC=0P*F)4EcQfMg[Y)B"@L%EM5iS866W>bkauNPEQoc"OA,BT#i)^:dkj\A7+$Q='k4`-fHPi[7:aOP*DhhXV*Ha_J=5E"5kfoo%!68";.O-r=iJs9q.u'8DJ6X)jgrime/W08's9OD]=(%A:^Oct(S'c$V9Lh%<^MFq'.N>`Q2C/O+'2k-%/Sh"\:fFY4U9_kBl8"KDs`B?E$)]uH@d-RUm^VqkOn`0]X@%D_;i"*2m$lUfbKO7-C&KHMJK_tg=`F]_*SYpiD`S8k#;_`S+i/^n]YXl%GJ&<#A4_+DELGPp0E0P[/'!6gJ>,"4n&3rpW>4[aLVt9]XH7d)+KHCqV,\&auD7Y58'ige&1c5j?8".nBL(Bcd6mK6^6d5J"1oV_LXk"q'P;gVnXt9LSBrhlCBt/]K\A-Tm%]d.C-p5VAm\p(RH.%IW[h0B/D=XBiWa]')8iEJ4h>gP2uF2)e;<`idr7tWdB#)Blo!,Cr[D$cQBMskV5>!bLgpPF1908RM1j!9<33ffnXUu1N@i`](rUX-EkfL`q7ujB5AcKACbIsFFMJ#U5+ME0n;H!V'Oa,A;S_RS+!EUEkZt]#l)u1oA0#hDE/l_3n:)`NAG<QdiCCt1L_\2D\R)]<SY(XL3CmX/<C74,):d9bu`Z\hImAL%0CrGJQKV&BL]>0""Ogp*CW2$q!_f@"^fbuFgPula;kMD#49"92Rnd1)5FZQf5]CZrH;uKd;]m*/bQACZaI].r`bSnXeF?@CC$&Mff30DPBM%CXm'PJFFS0"OiVDp3I6<[2`2qM7R!W8B9\_YIqIVTNouqn=LG?j@0af8;T-^:Oqb6Xb(UZ3"&KIA4T~>endstream
 endobj
 xref
 0 21
 0000000000 65535 f 
-0000000061 00000 n 
-0000000123 00000 n 
-0000000230 00000 n 
-0000000339 00000 n 
-0000000527 00000 n 
-0000000705 00000 n 
-0000000892 00000 n 
-0000001000 00000 n 
-0000001197 00000 n 
-0000001362 00000 n 
-0000001473 00000 n 
-0000001671 00000 n 
-0000001888 00000 n 
-0000002094 00000 n 
-0000002282 00000 n 
-0000002461 00000 n 
-0000002734 00000 n 
-0000002804 00000 n 
-0000003094 00000 n 
-0000003155 00000 n 
+0000000015 00000 n 
+0000000083 00000 n 
+0000000142 00000 n 
+0000000409 00000 n 
+0000000624 00000 n 
+0000000823 00000 n 
+0000001034 00000 n 
+0000001258 00000 n 
+0000001435 00000 n 
+0000001659 00000 n 
+0000001912 00000 n 
+0000002157 00000 n 
+0000002369 00000 n 
+0000002566 00000 n 
+0000016389 00000 n 
+0000016455 00000 n 
+0000016563 00000 n 
+0000016673 00000 n 
+0000016782 00000 n 
+0000016893 00000 n 
 trailer
 <<
-/ID 
-[<47dafad526fae03b459bbecca003fb95><47dafad526fae03b459bbecca003fb95>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 18 0 R
-/Root 17 0 R
 /Size 21
+/Root 1 0 R
+/Info 20 0 R
+/ID [ <47dafad526fae03b459bbecca003fb95> <47dafad526fae03b459bbecca003fb95> ]
 >>
 startxref
-7306
+17222
 %%EOF
